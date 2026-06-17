@@ -1,0 +1,1893 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MSP Tech Engineering – Spare Parts & Precision Engineering</title>
+<link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;500;600;700;800;900&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f4f6fb;--white:#ffffff;--navy:#0d1f3c;--blue:#1d4ed8;--blue2:#2563eb;--blue3:#3b82f6;
+  --blue-lt:#dbeafe;--blue-xs:#eff6ff;--cyan:#0891b2;--cyan-lt:#e0f2fe;
+  --green:#16a34a;--green-lt:#dcfce7;--orange:#ea580c;--orange-lt:#fff7ed;
+  --red:#dc2626;--red-lt:#fee2e2;--gold:#f59e0b;--gold-lt:#fef3c7;
+  --slate:#64748b;--slate2:#94a3b8;--slate3:#cbd5e1;
+  --text:#1e293b;--text2:#475569;--border:#e2e8f0;
+  --sh:0 2px 12px rgba(13,31,60,.08);--sh2:0 8px 32px rgba(13,31,60,.12);--sh3:0 20px 60px rgba(13,31,60,.16);
+  --r:10px;--r2:16px;--r3:22px;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;}
+a{text-decoration:none;color:inherit;}
+img{max-width:100%;}
+button{cursor:pointer;font-family:inherit;}
+
+/* ── LOADER ── */
+#loader{position:fixed;inset:0;background:var(--navy);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .7s,visibility .7s;}
+#loader.hide{opacity:0;visibility:hidden;}
+.ld-hex{width:72px;height:72px;background:var(--blue2);clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);display:flex;align-items:center;justify-content:center;font-family:'Exo 2',sans-serif;font-weight:900;font-size:22px;color:#fff;animation:hexPop .8s cubic-bezier(.34,1.56,.64,1) both;}
+.ld-name{font-family:'Exo 2',sans-serif;font-size:22px;font-weight:800;color:#fff;margin-top:16px;letter-spacing:-0.5px;animation:fadeUp .6s .2s both;}
+.ld-sub{font-family:'Exo 2',sans-serif;font-size:11px;font-weight:500;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.4);margin-top:4px;animation:fadeUp .6s .3s both;}
+.ld-bar{width:200px;height:3px;background:rgba(255,255,255,.1);border-radius:2px;overflow:hidden;margin-top:32px;animation:fadeUp .6s .4s both;}
+.ld-fill{height:100%;background:linear-gradient(90deg,var(--blue2),var(--cyan));animation:fill 1.4s .4s ease forwards;}
+@keyframes hexPop{from{opacity:0;transform:scale(.5) rotate(-30deg)}to{opacity:1;transform:scale(1) rotate(0)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fill{to{width:100%}}
+
+/* ── NAV ── */
+#nav{position:fixed;top:0;left:0;right:0;z-index:500;height:68px;display:flex;align-items:center;justify-content:space-between;padding:0 48px;background:rgba(255,255,255,.95);backdrop-filter:blur(20px);border-bottom:1px solid transparent;transition:border-color .3s,box-shadow .3s;}
+#nav.scrolled{border-bottom-color:var(--border);box-shadow:var(--sh);}
+.n-logo{display:flex;align-items:center;gap:10px;}
+.n-hex{width:38px;height:38px;background:linear-gradient(135deg,var(--navy),var(--blue2));clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);display:flex;align-items:center;justify-content:center;font-family:'Exo 2',sans-serif;font-weight:900;font-size:11px;color:#fff;transition:transform .35s cubic-bezier(.34,1.56,.64,1);}
+.n-logo:hover .n-hex{transform:rotate(30deg);}
+.n-brand{font-family:'Exo 2',sans-serif;font-weight:800;font-size:15px;color:var(--navy);line-height:1.1;}
+.n-brand span{display:block;font-size:9px;font-weight:500;color:var(--cyan);letter-spacing:2px;text-transform:uppercase;}
+.n-links{display:flex;gap:0;list-style:none;}
+.n-links a{font-family:'Exo 2',sans-serif;font-size:12px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;color:var(--text2);padding:6px 14px;position:relative;transition:color .2s;}
+.n-links a::after{content:'';position:absolute;bottom:0;left:14px;right:14px;height:2px;background:var(--blue2);transform:scaleX(0);transition:transform .3s cubic-bezier(.34,1.56,.64,1);}
+.n-links a:hover{color:var(--blue2);}.n-links a:hover::after{transform:scaleX(1);}
+.n-actions{display:flex;align-items:center;gap:8px;}
+.n-icon-btn{position:relative;width:38px;height:38px;border-radius:var(--r);border:none;display:flex;align-items:center;justify-content:center;font-size:17px;transition:all .2s;}
+.n-icon-btn.cart-btn{background:var(--blue-lt);color:var(--blue2);}
+.n-icon-btn.cart-btn:hover{background:var(--blue2);color:#fff;}
+.n-icon-btn.wish-btn{background:var(--red-lt);color:var(--red);}
+.n-icon-btn.wish-btn:hover{background:var(--red);color:#fff;}
+.n-icon-btn.user-btn{background:var(--bg);border:1.5px solid var(--border);color:var(--slate);}
+.n-icon-btn.user-btn:hover{border-color:var(--blue2);color:var(--blue2);}
+.n-badge{position:absolute;top:-5px;right:-5px;background:var(--orange);color:#fff;width:17px;height:17px;border-radius:50%;font-size:9px;font-weight:700;display:none;align-items:center;justify-content:center;}
+.n-cta{background:var(--blue2);color:#fff;border:none;padding:9px 18px;border-radius:var(--r);font-family:'Exo 2',sans-serif;font-size:12px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;transition:all .25s;}
+.n-cta:hover{background:var(--navy);transform:translateY(-1px);box-shadow:0 6px 20px rgba(37,99,235,.35);}
+.ham{display:none;flex-direction:column;gap:5px;background:none;border:none;padding:4px;}
+.ham span{display:block;width:20px;height:2px;background:var(--text);border-radius:2px;transition:all .3s;}
+
+/* ── HERO ── */
+.hero{min-height:100vh;display:flex;align-items:center;padding:88px 48px 60px;position:relative;overflow:hidden;}
+.hero-bg{position:absolute;inset:0;background:linear-gradient(140deg,#eef4ff 0%,#f4f6fb 45%,#e8f4fd 100%);}
+.hero-dots{position:absolute;inset:0;background-image:radial-gradient(circle,rgba(37,99,235,.08) 1.5px,transparent 1.5px);background-size:36px 36px;animation:dotDrift 22s linear infinite;}
+@keyframes dotDrift{from{background-position:0 0}to{background-position:36px 36px}}
+.blob{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none;}
+.b1{width:500px;height:500px;background:rgba(37,99,235,.11);top:-100px;right:-80px;animation:bF 10s ease-in-out infinite alternate;}
+.b2{width:400px;height:400px;background:rgba(8,145,178,.09);bottom:-80px;left:35%;animation:bF 12s 3s ease-in-out infinite alternate;}
+.b3{width:300px;height:300px;background:rgba(234,88,12,.07);top:55%;left:-80px;animation:bF 8s 5s ease-in-out infinite alternate;}
+@keyframes bF{from{transform:translate(0,0) scale(1)}to{transform:translate(24px,16px) scale(1.05)}}
+.hero-inner{position:relative;z-index:2;display:grid;grid-template-columns:1fr auto;gap:64px;align-items:center;width:100%;max-width:1280px;margin:0 auto;}
+.hero-content{max-width:640px;}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--border);padding:6px 16px;border-radius:50px;font-size:12px;color:var(--cyan);margin-bottom:28px;box-shadow:var(--sh);animation:fadeUp .7s 1.6s both;}
+.hero-badge::before{content:'';width:7px;height:7px;background:var(--green);border-radius:50%;animation:pulse 1.5s infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.6)}}
+.hero h1{font-family:'Exo 2',sans-serif;font-size:clamp(40px,6vw,80px);font-weight:900;line-height:.95;text-transform:uppercase;letter-spacing:-2px;margin-bottom:24px;}
+.hero h1 .w{display:block;overflow:hidden;}
+.hero h1 .w span{display:block;}
+.hero h1 .l1 span{color:var(--navy);animation:sUp .7s 1.65s cubic-bezier(.16,1,.3,1) both;}
+.hero h1 .l2 span{color:var(--blue2);animation:sUp .7s 1.8s cubic-bezier(.16,1,.3,1) both;}
+.hero h1 .l3 span{color:var(--slate2);font-weight:300;font-size:.38em;letter-spacing:5px;animation:sUp .7s 1.95s cubic-bezier(.16,1,.3,1) both;}
+@keyframes sUp{from{transform:translateY(110%);opacity:0}to{transform:translateY(0);opacity:1}}
+.hero-desc{font-size:15px;color:var(--text2);line-height:1.8;max-width:480px;margin-bottom:36px;animation:fadeUp .7s 2.1s both;}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;animation:fadeUp .7s 2.25s both;margin-bottom:40px;}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 28px;border-radius:var(--r);font-family:'Exo 2',sans-serif;font-size:13px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;border:none;transition:all .3s cubic-bezier(.34,1.56,.64,1);}
+.btn-primary{background:var(--blue2);color:#fff;box-shadow:0 6px 24px rgba(37,99,235,.3);}
+.btn-primary:hover{background:var(--navy);transform:translateY(-3px);box-shadow:0 12px 32px rgba(37,99,235,.38);}
+.btn-outline{background:#fff;color:var(--blue2);border:2px solid var(--border);}
+.btn-outline:hover{border-color:var(--blue2);transform:translateY(-3px);box-shadow:0 6px 20px rgba(37,99,235,.12);}
+.btn-green{background:var(--green);color:#fff;box-shadow:0 6px 20px rgba(22,163,74,.3);}
+.btn-green:hover{background:#15803d;transform:translateY(-2px);}
+.btn-sm{padding:9px 18px;font-size:12px;}
+.btn-xs{padding:6px 14px;font-size:11px;}
+.btn-red{background:var(--red);color:#fff;}
+.btn-red:hover{background:#b91c1c;}
+.hero-vehicle-finder{background:#fff;border:1px solid var(--border);border-radius:var(--r2);padding:20px 24px;box-shadow:var(--sh2);animation:fadeUp .7s 2.4s both;max-width:520px;}
+.vf-title{font-family:'Exo 2',sans-serif;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--slate);margin-bottom:12px;display:flex;align-items:center;gap:6px;}
+.vf-row{display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:8px;}
+.vf-select{padding:10px 12px;border:1.5px solid var(--border);border-radius:8px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--text);background:#fff;outline:none;transition:border-color .2s;}
+.vf-select:focus{border-color:var(--blue2);}
+.hero-stats{display:flex;flex-direction:column;gap:14px;animation:statIn .8s 2.2s cubic-bezier(.16,1,.3,1) both;}
+@keyframes statIn{from{opacity:0;transform:translateX(60px)}to{opacity:1;transform:translateX(0)}}
+.stat-card{background:#fff;border:1px solid var(--border);border-radius:var(--r2);padding:20px 26px;text-align:center;box-shadow:var(--sh);transition:all .35s cubic-bezier(.34,1.56,.64,1);}
+.stat-card:hover{transform:translateY(-6px) scale(1.02);box-shadow:var(--sh2);}
+.stat-n{font-family:'Exo 2',sans-serif;font-size:36px;font-weight:900;background:linear-gradient(135deg,var(--blue2),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;}
+.stat-l{font-size:11px;color:var(--slate2);letter-spacing:1.5px;text-transform:uppercase;margin-top:3px;}
+
+/* ── MARQUEE ── */
+.marquee{background:var(--navy);overflow:hidden;padding:12px 0;}
+.mq-track{display:flex;width:max-content;animation:mq 28s linear infinite;}
+.mq-track:hover{animation-play-state:paused;}
+.mq-item{font-family:'Exo 2',sans-serif;font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.45);padding:0 36px;white-space:nowrap;}
+.mq-item strong{color:#fff;}.mq-dot{color:var(--cyan);}
+@keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ── SECTIONS ── */
+.sec{padding:88px 48px;position:relative;}
+.sec-sm{padding:64px 48px;}
+.container{max-width:1280px;margin:0 auto;}
+.sec-tag{display:inline-block;font-family:'Exo 2',sans-serif;font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--blue2);background:var(--blue-lt);padding:5px 13px;border-radius:50px;margin-bottom:12px;}
+.sec-title{font-family:'Exo 2',sans-serif;font-size:clamp(28px,4vw,48px);font-weight:900;text-transform:uppercase;line-height:1;letter-spacing:-1px;color:var(--navy);}
+.sec-title .a{color:var(--blue2);}.sec-title .d{color:var(--slate2);font-weight:300;}
+.sec-sub{margin-top:14px;font-size:14px;color:var(--text2);line-height:1.8;max-width:480px;}
+.divline{width:48px;height:3px;background:linear-gradient(90deg,var(--blue2),var(--cyan));border-radius:2px;margin-top:16px;}
+
+/* ── PRODUCT CARD ── */
+.pg{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px;}
+.pc{background:#fff;border:1px solid var(--border);border-radius:var(--r2);overflow:hidden;transition:all .35s cubic-bezier(.34,1.56,.64,1);position:relative;}
+.pc:hover{transform:translateY(-8px);box-shadow:var(--sh2);border-color:rgba(37,99,235,.18);}
+.pc-img{height:180px;display:flex;align-items:center;justify-content:center;position:relative;cursor:pointer;overflow:hidden;}
+.pc-img svg{transition:transform .4s cubic-bezier(.34,1.56,.64,1);width:130px;height:130px;}
+.pc:hover .pc-img svg{transform:scale(1.12) rotate(-4deg);}
+.pc-wish{position:absolute;top:10px;right:10px;width:32px;height:32px;border-radius:50%;background:#fff;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:14px;cursor:pointer;transition:all .2s;z-index:2;}
+.pc-wish.active,.pc-wish:hover{background:var(--red-lt);border-color:var(--red);color:var(--red);}
+.pc-badge{position:absolute;top:10px;left:10px;font-family:'Exo 2',sans-serif;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:3px 9px;border-radius:50px;}
+.bg-g{background:var(--green-lt);color:var(--green);}
+.bg-o{background:var(--orange-lt);color:var(--orange);}
+.bg-b{background:var(--blue-lt);color:var(--blue2);}
+.bg-r{background:var(--red-lt);color:var(--red);}
+.pc-body{padding:16px 18px;}
+.pc-cat{font-family:'Exo 2',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--cyan);margin-bottom:4px;}
+.pc-name{font-family:'Exo 2',sans-serif;font-size:16px;font-weight:800;color:var(--navy);margin-bottom:3px;cursor:pointer;}
+.pc-name:hover{color:var(--blue2);}
+.pc-brand{font-size:12px;color:var(--slate2);margin-bottom:4px;}
+.pc-compat{font-size:12px;color:var(--text2);margin-bottom:8px;}
+.pc-stars{display:flex;align-items:center;gap:4px;margin-bottom:8px;}
+.pc-stars span{font-size:12px;color:var(--gold);}
+.pc-stars small{font-size:11px;color:var(--slate2);}
+.pc-price-row{display:flex;align-items:baseline;gap:8px;margin-bottom:8px;}
+.pc-price{font-family:'Exo 2',sans-serif;font-size:20px;font-weight:900;color:var(--navy);}
+.pc-mrp{font-size:13px;color:var(--slate2);text-decoration:line-through;}
+.pc-disc{font-size:12px;color:var(--green);font-weight:600;}
+.pc-stock{font-size:11px;font-weight:600;font-family:'Exo 2',sans-serif;letter-spacing:.5px;}
+.in-stock{color:var(--green);}
+.low-stock{color:var(--orange);}
+.out-stock{color:var(--red);}
+.pc-foot{display:flex;gap:8px;border-top:1px solid var(--border);padding-top:14px;margin-top:14px;}
+.add-cart-btn{flex:1;background:var(--blue2);color:#fff;border:none;padding:9px;border-radius:8px;font-family:'Exo 2',sans-serif;font-size:12px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;transition:all .25s;}
+.add-cart-btn:hover{background:var(--navy);}
+.view-btn{background:var(--bg);color:var(--text2);border:1.5px solid var(--border);padding:9px 12px;border-radius:8px;font-size:12px;transition:all .2s;}
+.view-btn:hover{border-color:var(--blue2);color:var(--blue2);}
+
+/* ── FILTER BAR ── */
+.fb{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:32px;}
+.fb-btn{font-family:'Exo 2',sans-serif;font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;padding:8px 18px;border-radius:8px;border:1.5px solid var(--border);background:#fff;color:var(--text2);transition:all .25s cubic-bezier(.34,1.56,.64,1);}
+.fb-btn.active,.fb-btn:hover{background:var(--blue2);border-color:var(--blue2);color:#fff;transform:translateY(-1px);box-shadow:0 4px 14px rgba(37,99,235,.25);}
+
+/* ── MODAL / OVERLAY ── */
+.overlay{position:fixed;inset:0;background:rgba(13,31,60,.55);z-index:600;display:none;align-items:center;justify-content:center;backdrop-filter:blur(6px);padding:20px;}
+.overlay.open{display:flex;}
+.modal{background:#fff;border-radius:var(--r3);max-width:900px;width:100%;max-height:90vh;overflow-y:auto;position:relative;animation:modalIn .4s cubic-bezier(.16,1,.3,1);}
+.modal-sm{max-width:480px;}
+.modal-md{max-width:640px;}
+@keyframes modalIn{from{opacity:0;transform:scale(.95) translateY(20px)}to{opacity:1;transform:scale(1) translateY(0)}}
+.modal-close{position:absolute;top:16px;right:16px;width:34px;height:34px;border-radius:8px;border:1px solid var(--border);background:var(--bg);font-size:16px;color:var(--slate);display:flex;align-items:center;justify-content:center;z-index:2;transition:all .2s;}
+.modal-close:hover{background:var(--red-lt);border-color:var(--red);color:var(--red);}
+.modal-header{padding:24px 28px 20px;border-bottom:1px solid var(--border);}
+.modal-title{font-family:'Exo 2',sans-serif;font-size:20px;font-weight:800;color:var(--navy);}
+.modal-body{padding:24px 28px;}
+.modal-footer{padding:16px 28px 24px;border-top:1px solid var(--border);display:flex;gap:12px;justify-content:flex-end;}
+
+/* ── PRODUCT DETAIL MODAL ── */
+.pd-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;}
+.pd-imgs{display:flex;flex-direction:column;gap:12px;}
+.pd-main-img{height:260px;background:var(--bg);border-radius:var(--r2);display:flex;align-items:center;justify-content:center;border:1px solid var(--border);overflow:hidden;}
+.pd-main-img svg{width:180px;height:180px;}
+.pd-thumbs{display:flex;gap:8px;}
+.pd-thumb{width:60px;height:60px;background:var(--bg);border-radius:var(--r);border:2px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:border-color .2s;overflow:hidden;}
+.pd-thumb svg{width:36px;height:36px;}
+.pd-thumb.active,.pd-thumb:hover{border-color:var(--blue2);}
+.pd-title{font-family:'Exo 2',sans-serif;font-size:22px;font-weight:900;color:var(--navy);margin-bottom:4px;}
+.pd-brand{font-size:13px;color:var(--slate2);margin-bottom:8px;}
+.pd-stars-row{display:flex;align-items:center;gap:8px;margin-bottom:12px;}
+.pd-price-row{display:flex;align-items:baseline;gap:10px;margin-bottom:14px;}
+.pd-price{font-family:'Exo 2',sans-serif;font-size:28px;font-weight:900;color:var(--navy);}
+.pd-mrp{font-size:15px;color:var(--slate2);text-decoration:line-through;}
+.pd-disc{font-size:14px;color:var(--green);font-weight:700;}
+.pd-gst{font-size:11px;color:var(--slate2);background:var(--bg);padding:2px 8px;border-radius:50px;border:1px solid var(--border);}
+.spec-table{width:100%;border-collapse:collapse;font-size:13px;margin:12px 0;}
+.spec-table tr{border-bottom:1px solid var(--border);}
+.spec-table tr:last-child{border-bottom:none;}
+.spec-table td{padding:8px 0;}
+.spec-table td:first-child{color:var(--slate);width:45%;font-family:'JetBrains Mono',monospace;font-size:11px;}
+.spec-table td:last-child{color:var(--text);font-weight:500;}
+.qty-row{display:flex;align-items:center;gap:12px;margin:16px 0;}
+.qty-ctrl{display:flex;align-items:center;gap:0;border:1.5px solid var(--border);border-radius:8px;overflow:hidden;}
+.qty-btn{width:36px;height:36px;border:none;background:var(--bg);color:var(--text);font-size:18px;transition:background .2s;}
+.qty-btn:hover{background:var(--blue-lt);color:var(--blue2);}
+.qty-val{min-width:40px;text-align:center;font-family:'Exo 2',sans-serif;font-weight:700;font-size:15px;border:none;background:#fff;}
+.warranty-pill{display:inline-flex;align-items:center;gap:6px;background:var(--green-lt);color:var(--green);padding:5px 12px;border-radius:50px;font-size:12px;font-weight:600;margin-bottom:12px;}
+
+/* ── CART PANEL ── */
+.cart-panel{position:fixed;top:0;right:0;bottom:0;width:420px;background:#fff;z-index:700;transform:translateX(100%);transition:transform .45s cubic-bezier(.16,1,.3,1);display:flex;flex-direction:column;box-shadow:-20px 0 60px rgba(13,31,60,.14);}
+.cart-panel.open{transform:translateX(0);}
+.cp-head{padding:20px 24px;border-bottom:1px solid var(--border);background:var(--bg);display:flex;align-items:center;justify-content:space-between;}
+.cp-head h2{font-family:'Exo 2',sans-serif;font-size:17px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:var(--navy);}
+.cp-x{background:none;border:1px solid var(--border);width:34px;height:34px;border-radius:8px;font-size:16px;color:var(--text2);display:flex;align-items:center;justify-content:center;transition:all .2s;}
+.cp-x:hover{background:var(--red-lt);border-color:var(--red);color:var(--red);}
+.cp-items{flex:1;overflow-y:auto;padding:12px 20px;}
+.cp-empty{text-align:center;padding:48px 16px;color:var(--slate2);}
+.cp-empty div{font-size:48px;margin-bottom:12px;}
+.ci{display:flex;gap:12px;padding:14px 0;border-bottom:1px solid var(--border);align-items:center;}
+.ci-img{width:56px;height:56px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden;}
+.ci-img svg{width:40px;height:40px;}
+.ci-name{font-family:'Exo 2',sans-serif;font-size:13px;font-weight:700;color:var(--navy);}
+.ci-sub{font-size:11px;color:var(--slate2);margin-top:1px;}
+.ci-price{font-size:13px;color:var(--blue2);font-weight:600;margin-top:3px;}
+.ci-qty-ctrl{display:flex;align-items:center;gap:0;border:1px solid var(--border);border-radius:6px;overflow:hidden;margin-top:6px;}
+.ci-qb{width:26px;height:26px;border:none;background:var(--bg);font-size:14px;transition:background .2s;}
+.ci-qb:hover{background:var(--blue-lt);}
+.ci-qv{width:30px;text-align:center;font-size:13px;font-weight:700;border:none;background:#fff;}
+.ci-del{margin-left:auto;background:none;border:1px solid var(--border);width:28px;height:28px;border-radius:6px;font-size:13px;color:var(--slate2);display:flex;align-items:center;justify-content:center;align-self:flex-start;transition:all .2s;}
+.ci-del:hover{background:var(--red-lt);border-color:var(--red);color:var(--red);}
+.cp-summary{padding:16px 20px;border-top:1px solid var(--border);background:var(--bg);}
+.cp-coupon{display:flex;gap:8px;margin-bottom:16px;}
+.cp-coupon input{flex:1;padding:10px 12px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;outline:none;transition:border-color .2s;}
+.cp-coupon input:focus{border-color:var(--blue2);}
+.cp-rows{display:flex;flex-direction:column;gap:6px;margin-bottom:16px;}
+.cp-row{display:flex;justify-content:space-between;font-size:13px;color:var(--text2);}
+.cp-row.total{font-family:'Exo 2',sans-serif;font-size:18px;font-weight:900;color:var(--navy);border-top:1px dashed var(--border);padding-top:10px;margin-top:4px;}
+.cp-row.total span:last-child{color:var(--blue2);}
+.cp-delivery{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--green);font-weight:600;margin-bottom:16px;}
+
+/* ── CHECKOUT FLOW ── */
+.checkout-steps{display:flex;gap:0;margin-bottom:28px;background:var(--bg);border-radius:var(--r2);padding:4px;}
+.ck-step{flex:1;display:flex;align-items:center;justify-content:center;gap:8px;padding:10px;border-radius:var(--r);font-family:'Exo 2',sans-serif;font-size:11px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--slate2);transition:all .3s;}
+.ck-step.active{background:#fff;color:var(--blue2);box-shadow:var(--sh);}
+.ck-step.done{color:var(--green);}
+.ck-num{width:22px;height:22px;border-radius:50%;background:var(--border);display:flex;align-items:center;justify-content:center;font-size:11px;transition:all .3s;}
+.ck-step.active .ck-num{background:var(--blue2);color:#fff;}
+.ck-step.done .ck-num{background:var(--green);color:#fff;}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.fg{display:flex;flex-direction:column;gap:5px;}
+.fg.full{grid-column:span 2;}
+.fg label{font-family:'Exo 2',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--slate);}
+.fg input,.fg select,.fg textarea{padding:11px 14px;border:1.5px solid var(--border);border-radius:8px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--text);background:#fff;outline:none;transition:border-color .2s,box-shadow .2s;}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--blue2);box-shadow:0 0 0 3px rgba(37,99,235,.1);}
+.fg select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2364748b' d='M6 8L1 3h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px;}
+.pay-opts{display:flex;flex-direction:column;gap:10px;}
+.pay-opt{display:flex;align-items:center;gap:14px;padding:14px 16px;border:1.5px solid var(--border);border-radius:var(--r);cursor:pointer;transition:all .2s;}
+.pay-opt:hover,.pay-opt.sel{border-color:var(--blue2);background:var(--blue-xs);}
+.pay-opt input[type=radio]{accent-color:var(--blue2);}
+.pay-icon{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+.pay-name{font-family:'Exo 2',sans-serif;font-size:13px;font-weight:700;color:var(--navy);}
+.pay-desc{font-size:11px;color:var(--slate2);}
+.secure-badge{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--slate);background:var(--bg);padding:8px 12px;border-radius:8px;margin-top:12px;}
+.oc-header{text-align:center;padding:36px 28px 24px;}
+.oc-icon{width:72px;height:72px;background:var(--green-lt);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 16px;}
+.oc-title{font-family:'Exo 2',sans-serif;font-size:24px;font-weight:900;color:var(--navy);}
+.oc-sub{font-size:14px;color:var(--text2);margin-top:4px;}
+.oc-id{font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:500;color:var(--blue2);background:var(--blue-xs);padding:10px 20px;border-radius:var(--r);display:inline-block;margin:16px 0;border:1px solid var(--blue-lt);}
+.oc-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;padding:0 28px 28px;}
+.oc-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--r2);padding:16px 18px;}
+.oc-card-title{font-family:'Exo 2',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--cyan);margin-bottom:10px;}
+.oc-card p{font-size:13px;color:var(--text2);line-height:1.7;}
+.oc-card .val{color:var(--text);font-weight:500;}
+.track-steps{display:flex;flex-direction:column;gap:0;position:relative;padding-left:28px;}
+.track-steps::before{content:'';position:absolute;left:10px;top:0;bottom:0;width:2px;background:var(--border);}
+.track-step{position:relative;padding:0 0 24px 20px;}
+.track-step:last-child{padding-bottom:0;}
+.track-dot{position:absolute;left:-18px;top:2px;width:20px;height:20px;border-radius:50%;border:2px solid var(--border);background:#fff;display:flex;align-items:center;justify-content:center;font-size:10px;transition:all .3s;}
+.track-step.done .track-dot{background:var(--green);border-color:var(--green);color:#fff;}
+.track-step.active .track-dot{background:var(--blue2);border-color:var(--blue2);color:#fff;animation:trackPulse 1.5s infinite;}
+@keyframes trackPulse{0%,100%{box-shadow:0 0 0 0 rgba(37,99,235,.3)}50%{box-shadow:0 0 0 6px rgba(37,99,235,0)}}
+.track-title{font-family:'Exo 2',sans-serif;font-size:14px;font-weight:700;color:var(--navy);}
+.track-sub{font-size:12px;color:var(--slate2);margin-top:2px;}
+
+/* ── CAPABILITIES ── */
+.cap-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:56px;}
+.cap-card{background:#fff;border:1px solid var(--border);border-radius:var(--r3);padding:36px 28px;position:relative;overflow:hidden;transition:all .4s cubic-bezier(.34,1.56,.64,1);}
+.cap-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--blue2),var(--cyan));transform:scaleX(0);transform-origin:left;transition:transform .5s cubic-bezier(.16,1,.3,1);}
+.cap-card:hover{transform:translateY(-8px);box-shadow:var(--sh2);}.cap-card:hover::before{transform:scaleX(1);}
+.cap-ic{width:60px;height:60px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:26px;margin-bottom:20px;transition:transform .4s cubic-bezier(.34,1.56,.64,1);}
+.cap-card:hover .cap-ic{transform:rotate(-8deg) scale(1.1);}
+.ib{background:var(--blue-lt);}.ic{background:var(--cyan-lt);}.io{background:var(--orange-lt);}
+.cap-num{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--slate2);letter-spacing:2px;margin-bottom:6px;}
+.cap-title{font-family:'Exo 2',sans-serif;font-size:20px;font-weight:800;text-transform:uppercase;color:var(--navy);margin-bottom:10px;}
+.cap-desc{font-size:13px;color:var(--text2);line-height:1.75;}
+.cap-chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:16px;}
+.cp-chip{font-family:'Exo 2',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;padding:3px 9px;border-radius:50px;background:var(--blue-lt);color:var(--blue2);}
+
+/* ── COUNTERS ── */
+.counters{background:var(--navy);padding:64px 48px;position:relative;overflow:hidden;}
+.counters::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.03) 1px,transparent 1px);background-size:28px 28px;}
+.cg{display:grid;grid-template-columns:repeat(4,1fr);}
+.ci-stat{text-align:center;padding:28px;border-right:1px solid rgba(255,255,255,.06);}
+.ci-stat:last-child{border-right:none;}
+.cn{font-family:'Exo 2',sans-serif;font-size:clamp(36px,4.5vw,60px);font-weight:900;background:linear-gradient(135deg,#fff,rgba(255,255,255,.65));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;}
+.cs{color:var(--cyan);-webkit-text-fill-color:var(--cyan);font-size:.55em;}
+.cl{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.4);margin-top:6px;}
+
+/* ── WHY US ── */
+.why-grid{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center;}
+.why-feat{display:flex;flex-direction:column;gap:14px;}
+.wf{display:flex;gap:18px;align-items:flex-start;padding:20px;background:#fff;border:1px solid var(--border);border-radius:var(--r2);transition:all .35s cubic-bezier(.34,1.56,.64,1);}
+.wf:hover{transform:translateX(8px);border-color:rgba(37,99,235,.25);box-shadow:var(--sh);}
+.wf-ic{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;transition:transform .4s cubic-bezier(.34,1.56,.64,1);}
+.wf:hover .wf-ic{transform:scale(1.12) rotate(-6deg);}
+.wf h3{font-family:'Exo 2',sans-serif;font-size:15px;font-weight:800;text-transform:uppercase;color:var(--navy);margin-bottom:4px;}
+.wf p{font-size:12px;color:var(--text2);line-height:1.7;}
+.machine-card{background:#fff;border:1px solid var(--border);border-radius:var(--r3);overflow:hidden;box-shadow:var(--sh2);}
+.m-tabs{display:flex;background:var(--bg);border-bottom:1px solid var(--border);}
+.m-tab{flex:1;padding:12px;font-family:'Exo 2',sans-serif;font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--slate2);background:none;border:none;border-bottom:2px solid transparent;transition:all .2s;cursor:pointer;}
+.m-tab.active{color:var(--blue2);border-bottom-color:var(--blue2);}
+.m-content{display:none;}.m-content.active{display:block;}
+.m-head{padding:24px 20px;display:flex;align-items:center;gap:14px;}
+.m-head-ic{font-size:40px;}
+.m-head-t{font-family:'Exo 2',sans-serif;font-size:18px;font-weight:900;color:#fff;text-transform:uppercase;}
+.m-head-s{font-size:12px;color:rgba(255,255,255,.5);margin-top:2px;}
+.m-specs{padding:6px 20px 18px;}
+.s-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border);}
+.s-row:last-child{border-bottom:none;}
+.s-k{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--slate2);}
+.s-v{font-family:'Exo 2',sans-serif;font-size:12px;font-weight:700;color:var(--navy);}
+
+/* ── TESTIMONIALS ── */
+.t-wrap{overflow:hidden;margin-top:52px;user-select:none;}
+.t-track{display:flex;gap:22px;transition:transform .5s cubic-bezier(.16,1,.3,1);}
+.t-card{background:#fff;border:1px solid var(--border);border-radius:var(--r2);padding:28px;min-width:320px;max-width:320px;flex-shrink:0;transition:all .3s;}
+.t-card:hover{box-shadow:var(--sh2);transform:translateY(-4px);}
+.t-stars{font-size:14px;color:var(--gold);letter-spacing:2px;margin-bottom:12px;}
+.t-text{font-size:13px;color:var(--text2);line-height:1.8;margin-bottom:18px;}
+.t-auth{display:flex;align-items:center;gap:10px;}
+.t-av{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Exo 2',sans-serif;font-size:15px;font-weight:800;color:#fff;flex-shrink:0;}
+.t-name{font-family:'Exo 2',sans-serif;font-size:13px;font-weight:700;color:var(--navy);}
+.t-co{font-size:11px;color:var(--slate2);}
+.sl-ctrl{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:28px;}
+.sl-btn{width:40px;height:40px;border-radius:50%;border:1.5px solid var(--border);background:#fff;font-size:16px;transition:all .25s;color:var(--text2);display:flex;align-items:center;justify-content:center;}
+.sl-btn:hover{background:var(--blue2);border-color:var(--blue2);color:#fff;}
+.sl-dots{display:flex;gap:5px;align-items:center;}
+.sd{width:8px;height:8px;border-radius:50%;background:var(--border);transition:all .3s;cursor:pointer;}
+.sd.active{background:var(--blue2);width:22px;border-radius:4px;}
+
+/* ── FAQ ── */
+.faq-list{display:flex;flex-direction:column;gap:8px;max-width:720px;}
+.faq-item{background:#fff;border:1px solid var(--border);border-radius:var(--r2);overflow:hidden;transition:all .2s;}
+.faq-item.open{border-color:rgba(37,99,235,.25);}
+.faq-q{display:flex;align-items:center;justify-content:space-between;padding:18px 20px;cursor:pointer;font-family:'Exo 2',sans-serif;font-size:14px;font-weight:700;color:var(--navy);}
+.faq-icon{font-size:18px;color:var(--slate2);transition:transform .3s;}
+.faq-item.open .faq-icon{transform:rotate(45deg);color:var(--blue2);}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.16,1,.3,1);}
+.faq-a.open{max-height:200px;}
+.faq-a p{padding:0 20px 18px;font-size:13px;color:var(--text2);line-height:1.75;}
+
+/* ── CONTACT ── */
+.contact-grid{display:grid;grid-template-columns:1fr 1.4fr;gap:64px;}
+.contact-items{display:flex;flex-direction:column;}
+.c-row{display:flex;gap:14px;padding:20px 0;border-bottom:1px solid var(--border);transition:all .2s;}
+.c-row:last-of-type{border-bottom:none;}
+.c-row:hover .c-ic{background:var(--blue2);color:#fff;}
+.c-ic{width:42px;height:42px;border-radius:10px;background:var(--blue-lt);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;transition:all .3s;}
+.c-lbl{font-family:'Exo 2',sans-serif;font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--cyan);margin-bottom:3px;}
+.c-val{font-size:13px;color:var(--text2);line-height:1.65;}
+.c-val a{color:var(--text2);transition:color .2s;}
+.c-val a:hover{color:var(--blue2);}
+.gstin-box{background:var(--bg);border:1px solid var(--border);border-radius:var(--r2);padding:18px 20px;margin-top:18px;}
+.g-lbl{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--slate2);margin-bottom:5px;}
+.g-val{font-family:'JetBrains Mono',monospace;font-size:16px;color:var(--blue2);letter-spacing:2px;}
+.cform{display:flex;flex-direction:column;gap:16px;}
+.btn-submit{background:var(--blue2);color:#fff;border:none;padding:14px 28px;border-radius:var(--r);font-family:'Exo 2',sans-serif;font-size:13px;font-weight:800;letter-spacing:1px;text-transform:uppercase;transition:all .3s;display:flex;align-items:center;justify-content:center;gap:8px;}
+.btn-submit:hover{background:var(--navy);transform:translateY(-2px);box-shadow:0 10px 28px rgba(37,99,235,.3);}
+
+/* ── DASHBOARD ── */
+.dash-grid{display:grid;grid-template-columns:240px 1fr;gap:0;height:100%;}
+.dash-sidebar{padding:20px;background:var(--bg);border-right:1px solid var(--border);}
+.dash-menu{display:flex;flex-direction:column;gap:4px;}
+.dash-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:var(--r);font-family:'Exo 2',sans-serif;font-size:12px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--text2);cursor:pointer;transition:all .2s;}
+.dash-item:hover,.dash-item.active{background:#fff;color:var(--blue2);box-shadow:var(--sh);}
+.dash-item span{font-size:16px;}
+.dash-main{padding:20px 24px;overflow-y:auto;max-height:60vh;}
+.dash-section{display:none;}.dash-section.active{display:block;}
+.orders-list{display:flex;flex-direction:column;gap:12px;}
+.order-row{background:var(--bg);border:1px solid var(--border);border-radius:var(--r2);padding:16px 18px;display:flex;align-items:center;gap:16px;transition:all .2s;}
+.order-row:hover{border-color:rgba(37,99,235,.2);box-shadow:var(--sh);}
+.order-ic{font-size:28px;}
+.order-id{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--blue2);}
+.order-name{font-family:'Exo 2',sans-serif;font-size:14px;font-weight:700;color:var(--navy);margin-top:2px;}
+.order-date{font-size:11px;color:var(--slate2);margin-top:1px;}
+.order-status{padding:3px 10px;border-radius:50px;font-family:'Exo 2',sans-serif;font-size:10px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;margin-left:auto;}
+.st-delivered{background:var(--green-lt);color:var(--green);}
+.st-shipped{background:var(--blue-lt);color:var(--blue2);}
+.st-confirmed{background:var(--gold-lt);color:var(--gold);}
+.wish-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;}
+.wish-item{background:#fff;border:1px solid var(--border);border-radius:var(--r2);padding:14px;text-align:center;cursor:pointer;transition:all .2s;}
+.wish-item:hover{border-color:rgba(37,99,235,.2);box-shadow:var(--sh);}
+.wish-emoji{display:flex;justify-content:center;margin-bottom:8px;}
+.wish-emoji svg{width:44px;height:44px;}
+.wish-name{font-family:'Exo 2',sans-serif;font-size:12px;font-weight:700;color:var(--navy);}
+.wish-price{font-size:12px;color:var(--blue2);font-weight:600;margin-top:3px;}
+
+/* ── FOOTER ── */
+footer{background:var(--navy);padding:56px 48px 32px;}
+.foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;padding-bottom:40px;border-bottom:1px solid rgba(255,255,255,.08);}
+.f-brand{font-family:'Exo 2',sans-serif;font-weight:800;font-size:16px;color:#fff;display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+.f-hex{width:36px;height:36px;background:rgba(37,99,235,.35);clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);display:flex;align-items:center;justify-content:center;font-family:'Exo 2',sans-serif;font-weight:900;font-size:10px;color:#fff;flex-shrink:0;}
+.f-desc{font-size:13px;color:rgba(255,255,255,.45);line-height:1.75;margin-bottom:16px;}
+.f-contact p{font-size:12px;color:rgba(255,255,255,.4);margin-bottom:4px;}
+.f-contact a{color:rgba(255,255,255,.4);}
+.f-contact a:hover{color:var(--cyan);}
+.f-col-title{font-family:'Exo 2',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:16px;}
+.f-links{display:flex;flex-direction:column;gap:8px;}
+.f-links a{font-size:13px;color:rgba(255,255,255,.5);transition:color .2s;}
+.f-links a:hover{color:#fff;}
+.f-bottom{display:flex;align-items:center;justify-content:space-between;padding-top:24px;flex-wrap:wrap;gap:12px;}
+.f-gstin{font-family:'JetBrains Mono',monospace;font-size:11px;color:rgba(255,255,255,.3);letter-spacing:1px;}
+.f-gstin b{color:var(--cyan);}
+.f-copy{font-size:12px;color:rgba(255,255,255,.3);}
+.trust-badges{display:flex;gap:8px;align-items:center;}
+.tb{display:flex;align-items:center;gap:5px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);padding:5px 10px;border-radius:6px;font-size:11px;color:rgba(255,255,255,.5);}
+
+/* ── TOAST ── */
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--navy);color:#fff;padding:12px 22px;border-radius:var(--r2);font-family:'Exo 2',sans-serif;font-size:12px;font-weight:600;letter-spacing:.5px;z-index:800;opacity:0;transition:all .45s cubic-bezier(.34,1.56,.64,1);display:flex;align-items:center;gap:8px;box-shadow:0 8px 32px rgba(13,31,60,.25);}
+.toast.show{transform:translateX(-50%) translateY(0);opacity:1;}
+
+/* ── SCROLL REVEAL ── */
+.rv{opacity:0;transform:translateY(32px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1);}
+.rv.fl{transform:translateX(-44px);}.rv.fr{transform:translateX(44px);}
+.rv.vis{opacity:1;transform:none;}
+.d1{transition-delay:.05s;}.d2{transition-delay:.12s;}.d3{transition-delay:.2s;}.d4{transition-delay:.28s;}
+
+/* ── MISC ── */
+.badge-pill{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:50px;font-family:'Exo 2',sans-serif;font-size:10px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;}
+.divider{border:none;border-top:1px solid var(--border);margin:20px 0;}
+.section-header{margin-bottom:52px;}
+.return-policy{background:var(--orange-lt);border:1px solid rgba(234,88,12,.2);border-radius:var(--r2);padding:16px 20px;margin-top:20px;}
+.rp-title{font-family:'Exo 2',sans-serif;font-size:12px;font-weight:700;color:var(--orange);}
+.rp-items{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;}
+.rp-item{font-size:11px;color:var(--text2);display:flex;align-items:center;gap:4px;}
+.live-chat{position:fixed;bottom:28px;right:28px;z-index:400;}
+.lc-btn{width:52px;height:52px;background:var(--green);border-radius:50%;border:none;color:#fff;font-size:22px;box-shadow:0 6px 24px rgba(22,163,74,.4);transition:all .3s cubic-bezier(.34,1.56,.64,1);display:flex;align-items:center;justify-content:center;}
+.lc-btn:hover{transform:scale(1.1);box-shadow:0 10px 32px rgba(22,163,74,.5);}
+.lc-tooltip{position:absolute;bottom:60px;right:0;background:var(--navy);color:#fff;font-size:12px;padding:6px 12px;border-radius:8px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .2s;}
+.live-chat:hover .lc-tooltip{opacity:1;}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1100px){
+  #nav{padding:0 24px;}
+  .hero{padding:88px 24px 56px;}
+  .hero-inner{grid-template-columns:1fr;gap:40px;}
+  .hero-stats{flex-direction:row;flex-wrap:wrap;justify-content:center;animation:fadeUp .8s 2.2s both;}
+  .cap-grid{grid-template-columns:1fr 1fr;}
+  .why-grid{grid-template-columns:1fr;gap:40px;}
+  .contact-grid{grid-template-columns:1fr;gap:40px;}
+  .cg{grid-template-columns:repeat(2,1fr);}
+  .ci-stat:nth-child(2){border-right:none;}
+  .foot-grid{grid-template-columns:1fr 1fr;gap:32px;}
+  .sec{padding:72px 24px;}
+  .sec-sm{padding:52px 24px;}
+  .counters{padding:52px 24px;}
+  .n-links{display:none;position:fixed;top:68px;left:0;right:0;background:#fff;flex-direction:column;padding:20px 24px;border-bottom:1px solid var(--border);box-shadow:var(--sh2);}
+  .n-links.open{display:flex;}
+  .ham{display:flex;}
+}
+@media(max-width:640px){
+  .cap-grid{grid-template-columns:1fr;}
+  .form-grid{grid-template-columns:1fr;}
+  .fg.full{grid-column:span 1;}
+  .cart-panel{width:100%;}
+  .cg{grid-template-columns:1fr 1fr;}
+  .pd-grid{grid-template-columns:1fr;}
+  .dash-grid{grid-template-columns:1fr;}
+  .oc-grid{grid-template-columns:1fr;}
+  .foot-grid{grid-template-columns:1fr;}
+  .checkout-steps{display:none;}
+}
+</style>
+</head>
+<body>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="ld-hex">MSP</div>
+  <div class="ld-name">MSP Tech Engineering</div>
+  <div class="ld-sub">Precision Tooling &amp; Spare Parts</div>
+  <div class="ld-bar"><div class="ld-fill"></div></div>
+</div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#home" class="n-logo">
+    <div class="n-hex">MSP</div>
+    <div class="n-brand">MSP Tech Engineering<span>Precision Tooling Solutions</span></div>
+  </a>
+  <ul class="n-links" id="navLinks">
+    <li><a href="#capabilities" onclick="closeNav()">Capabilities</a></li>
+    <li><a href="#products" onclick="closeNav()">Products</a></li>
+    <li><a href="#why" onclick="closeNav()">Why Us</a></li>
+    <li><a href="#reviews" onclick="closeNav()">Reviews</a></li>
+    <li><a href="#faq" onclick="closeNav()">FAQ</a></li>
+    <li><a href="#contact" onclick="closeNav()">Contact</a></li>
+  </ul>
+  <div class="n-actions">
+    <button class="n-icon-btn wish-btn" onclick="openDash('wishlist')" title="Wishlist">♡<span class="n-badge" id="wishBadge">0</span></button>
+    <button class="n-icon-btn cart-btn" onclick="toggleCart()" title="Cart">🛒<span class="n-badge" id="cartBadge">0</span></button>
+    <button class="n-icon-btn user-btn" onclick="openDash('orders')" title="My Account">👤</button>
+    <a href="#contact" class="n-cta">Get Quote</a>
+    <button class="ham" id="ham" onclick="toggleNav()"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div><div class="hero-dots"></div>
+  <div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
+  <div class="hero-inner container">
+    <div class="hero-content">
+      <div class="hero-badge">🟢 Open for Orders — Hosur, Tamil Nadu</div>
+      <h1>
+        <div class="w l1"><span>MSP Tech</span></div>
+        <div class="w l2"><span>Engineering</span></div>
+        <div class="w l3"><span>Precision Tooling &amp; Spare Parts</span></div>
+      </h1>
+      <p class="hero-desc">Your one-stop destination for premium bike &amp; car spare parts, press tool manufacturing, EDM wire-cut, and VMC machining. 500+ parts. Same-day dispatch.</p>
+      <div class="hero-btns">
+        <button onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})" class="btn btn-primary">⚙ Browse Parts</button>
+        <button onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})" class="btn btn-outline">📞 Get a Quote</button>
+      </div>
+      <div class="hero-vehicle-finder">
+        <div class="vf-title">🔍 Find Parts by Vehicle</div>
+        <div class="vf-row">
+          <select class="vf-select" id="vfType" onchange="updateVfMake()">
+            <option value="">Type</option>
+            <option>Bike</option><option>Car</option>
+          </select>
+          <select class="vf-select" id="vfMake"><option value="">Brand</option></select>
+          <select class="vf-select" id="vfPart">
+            <option value="">Part</option>
+            <option>Engine</option><option>Brakes</option><option>Suspension</option><option>Electrical</option><option>Transmission</option><option>Filters</option>
+          </select>
+          <button class="btn btn-primary btn-sm" onclick="searchByVehicle()">Find</button>
+        </div>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-card"><div class="stat-n">500<span style="-webkit-text-fill-color:var(--cyan);font-size:.5em;">+</span></div><div class="stat-l">Parts In Stock</div></div>
+      <div class="stat-card"><div class="stat-n">10<span style="-webkit-text-fill-color:var(--cyan);font-size:.5em;">+</span></div><div class="stat-l">Years Experience</div></div>
+      <div class="stat-card"><div class="stat-n">100<span style="-webkit-text-fill-color:var(--cyan);font-size:.5em;">%</span></div><div class="stat-l">Quality Assured</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee">
+  <div class="mq-track">
+    <span class="mq-item"><strong>Press Tools</strong> <span class="mq-dot">✦</span></span>
+    <span class="mq-item"><strong>EDM Wire Cut</strong> <span class="mq-dot">✦</span></span>
+    <span class="mq-item"><strong>VMC Machining</strong> <span class="mq-dot">✦</span></span>
+    <span class="mq-item"><strong>Bike Spare Parts</strong> <span class="mq-dot">✦</span></span>
+    <span class="mq-item"><strong>Car Spare Parts</strong> <span class="mq-dot">✦</span></span>
+    <span class="mq-item"><strong>Tooling &amp; Fixtures</strong> <span class="mq-dot">✦</span></span>
+    <span class="mq-item"><strong>Job Works</strong> <span class="mq-dot">✦</span></span>
+    <span class="mq-item"><strong>Custom Components</strong> <span class="mq-dot">✦</span></span>
+    <span class="mq-item"><strong>Press Tools</strong> <span class="mq-dot">✦</span></span>
+    <span class="mq-item"><strong>EDM Wire Cut</strong> <span class="mq-dot">✦</span></span>
+    <span class="mq-item"><strong>VMC Machining</strong> <span class="mq-dot">✦</span></span>
+    <span class="mq-item"><strong>Bike Spare Parts</strong> <span class="mq-dot">✦</span></span>
+    <span class="mq-item"><strong>Car Spare Parts</strong> <span class="mq-dot">✦</span></span>
+    <span class="mq-item"><strong>Tooling &amp; Fixtures</strong> <span class="mq-dot">✦</span></span>
+    <span class="mq-item"><strong>Job Works</strong> <span class="mq-dot">✦</span></span>
+    <span class="mq-item"><strong>Custom Components</strong> <span class="mq-dot">✦</span></span>
+  </div>
+</div>
+
+<!-- CAPABILITIES -->
+<section class="sec" id="capabilities" style="background:#fff;">
+  <div class="container">
+    <div class="section-header rv"><div class="sec-tag">What We Do</div><h2 class="sec-title">Engineering <span class="a">Capabilities</span></h2><div class="divline"></div><p class="sec-sub">State-of-the-art machinery and precision processes delivering components to exact specifications.</p></div>
+    <div class="cap-grid">
+      <div class="cap-card rv d1"><div class="cap-ic ib">🔩</div><div class="cap-num">// 01</div><div class="cap-title">Press Tools</div><p class="cap-desc">Custom press tools for stamping, blanking, piercing, bending, and forming. D2, H13, EN31 steels. All manufactured post drawing approval.</p><div class="cap-chips"><span class="cp-chip">Blanking</span><span class="cp-chip">Piercing</span><span class="cp-chip">Bending</span><span class="cp-chip">Forming</span></div></div>
+      <div class="cap-card rv d2"><div class="cap-ic ic">⚡</div><div class="cap-num">// 02</div><div class="cap-title">EDM Wire Cut</div><p class="cap-desc">Electrical Discharge Machining for intricate profiles with Ra 0.4 µm surface finish. ±0.005mm accuracy on hardened steels.</p><div class="cap-chips"><span class="cp-chip">±0.005mm</span><span class="cp-chip">Ra 0.4µm</span><span class="cp-chip">Hard Steel</span><span class="cp-chip">DXF/DWG</span></div></div>
+      <div class="cap-card rv d3"><div class="cap-ic io">🏭</div><div class="cap-num">// 03</div><div class="cap-title">VMC Machining</div><p class="cap-desc">Vertical Milling Center with 3-axis CNC control for engine parts, brackets, fixtures. ±0.01mm. From 1 piece onwards.</p><div class="cap-chips"><span class="cp-chip">3-Axis CNC</span><span class="cp-chip">Milling</span><span class="cp-chip">Drilling</span><span class="cp-chip">Boring</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="sec" id="products" style="background:var(--bg);">
+  <div class="container">
+    <div class="section-header rv"><div class="sec-tag">Shop Now</div><h2 class="sec-title">Spare <span class="a">Parts</span> <span class="d">Catalog</span></h2><div class="divline"></div><p class="sec-sub">Genuine and precision-machined parts. Quality-checked before dispatch. Fast delivery across Tamil Nadu.</p></div>
+    <div class="fb rv d1" id="filterBar"></div>
+    <div class="pg" id="productsGrid"></div>
+  </div>
+</section>
+
+<!-- COUNTERS -->
+<section class="counters">
+  <div class="container">
+    <div class="cg">
+      <div class="ci-stat rv d1"><div class="cn" data-t="500">0<span class="cs">+</span></div><div class="cl">Parts in Stock</div></div>
+      <div class="ci-stat rv d2"><div class="cn" data-t="10">0<span class="cs">+</span></div><div class="cl">Years Experience</div></div>
+      <div class="ci-stat rv d3"><div class="cn" data-t="1200">0<span class="cs">+</span></div><div class="cl">Orders Delivered</div></div>
+      <div class="ci-stat rv d4"><div class="cn" data-t="100">0<span class="cs">%</span></div><div class="cl">Quality Pass Rate</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section class="sec" id="why" style="background:#fff;">
+  <div class="container why-grid">
+    <div>
+      <div class="rv"><div class="sec-tag">Why Choose Us</div></div>
+      <div class="rv d1"><h2 class="sec-title">Built on <span class="a">Precision</span></h2><div class="divline"></div></div>
+      <div class="why-feat" style="margin-top:36px;">
+        <div class="wf rv d1"><div class="wf-ic ib">🎯</div><div><h3>Micron Accuracy</h3><p>EDM and VMC processes deliver ±0.01mm tolerances — perfect fitment every time.</p></div></div>
+        <div class="wf rv d2"><div class="wf-ic ic">🚀</div><div><h3>Fast Turnaround</h3><p>In-house machining. Same-day dispatch for stocked parts across Tamil Nadu.</p></div></div>
+        <div class="wf rv d3"><div class="wf-ic" style="background:var(--green-lt);">🔒</div><div><h3>Quality Assured</h3><p>Calibrated inspection tools. Dimensional verification before every delivery.</p></div></div>
+        <div class="wf rv d4"><div class="wf-ic io">💡</div><div><h3>Custom Solutions</h3><p>Send a drawing or broken part — we reverse-engineer and manufacture replacements.</p></div></div>
+      </div>
+    </div>
+    <div class="rv fr">
+      <div class="machine-card">
+        <div class="m-tabs">
+          <button class="m-tab active" onclick="mTab(0)">VMC</button>
+          <button class="m-tab" onclick="mTab(1)">EDM</button>
+          <button class="m-tab" onclick="mTab(2)">Press</button>
+        </div>
+        <div class="m-content active" id="mt0">
+          <div class="m-head" style="background:linear-gradient(135deg,#1a3fa0,#2563eb);"><div class="m-head-ic">🏭</div><div><div class="m-head-t">VMC Machining</div><div class="m-head-s">Vertical Milling Center</div></div></div>
+          <div class="m-specs">
+            <div class="s-row"><span class="s-k">Travel X/Y/Z</span><span class="s-v">600×400×500 mm</span></div>
+            <div class="s-row"><span class="s-k">Spindle Speed</span><span class="s-v">Up to 8,000 RPM</span></div>
+            <div class="s-row"><span class="s-k">Tolerance</span><span class="s-v">±0.01 mm</span></div>
+            <div class="s-row"><span class="s-k">Materials</span><span class="s-v">Al, SS, MS, Brass, CI</span></div>
+            <div class="s-row"><span class="s-k">Min Quantity</span><span class="s-v">1 Piece</span></div>
+          </div>
+        </div>
+        <div class="m-content" id="mt1">
+          <div class="m-head" style="background:linear-gradient(135deg,#0c4a6e,#0891b2);"><div class="m-head-ic">⚡</div><div><div class="m-head-t">EDM Wire Cut</div><div class="m-head-s">Electrical Discharge Machining</div></div></div>
+          <div class="m-specs">
+            <div class="s-row"><span class="s-k">Wire Dia</span><span class="s-v">0.25mm Brass Wire</span></div>
+            <div class="s-row"><span class="s-k">Accuracy</span><span class="s-v">±0.005 mm</span></div>
+            <div class="s-row"><span class="s-k">Surface Finish</span><span class="s-v">Ra 0.4 µm</span></div>
+            <div class="s-row"><span class="s-k">Max Thickness</span><span class="s-v">200 mm</span></div>
+            <div class="s-row"><span class="s-k">File Format</span><span class="s-v">DXF / DWG / PDF</span></div>
+          </div>
+        </div>
+        <div class="m-content" id="mt2">
+          <div class="m-head" style="background:linear-gradient(135deg,#7c2d12,#ea580c);"><div class="m-head-ic">🔩</div><div><div class="m-head-t">Press Tools</div><div class="m-head-s">Sheet Metal Tooling</div></div></div>
+          <div class="m-specs">
+            <div class="s-row"><span class="s-k">Operations</span><span class="s-v">Blank, Pierce, Bend, Form</span></div>
+            <div class="s-row"><span class="s-k">Die Material</span><span class="s-v">D2, H13, EN31</span></div>
+            <div class="s-row"><span class="s-k">Sheet Thickness</span><span class="s-v">0.5–6 mm</span></div>
+            <div class="s-row"><span class="s-k">Hardness</span><span class="s-v">58–62 HRC</span></div>
+            <div class="s-row"><span class="s-k">Delivery</span><span class="s-v">After drawing approval</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="sec" id="reviews" style="background:var(--bg);">
+  <div class="container">
+    <div class="section-header rv"><div class="sec-tag">Customer Reviews</div><h2 class="sec-title">What Clients <span class="a">Say</span></h2><div class="divline"></div></div>
+    <div class="t-wrap" id="tWrap"><div class="t-track" id="tTrack"></div></div>
+    <div class="sl-ctrl"><button class="sl-btn" onclick="slide(-1)">←</button><div class="sl-dots" id="slDots"></div><button class="sl-btn" onclick="slide(1)">→</button></div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="sec-sm" id="faq" style="background:#fff;">
+  <div class="container">
+    <div class="section-header rv"><div class="sec-tag">Help Center</div><h2 class="sec-title">Frequently Asked <span class="a">Questions</span></h2><div class="divline"></div></div>
+    <div class="faq-list rv d1" id="faqList"></div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="sec" id="contact" style="background:var(--bg);">
+  <div class="container">
+    <div class="section-header rv"><div class="sec-tag">Get In Touch</div><h2 class="sec-title">Contact <span class="a">Us</span></h2><div class="divline"></div></div>
+    <div class="contact-grid">
+      <div class="rv fl">
+        <div class="contact-items">
+          <div class="c-row"><div class="c-ic">📍</div><div><div class="c-lbl">Address</div><div class="c-val">Door No 7/138, Rajeshwari Layout,<br>Indian Teastall Backside, Begepalli,<br>HOSUR – 635 126, Krishnagiri, TN</div></div></div>
+          <div class="c-row"><div class="c-ic">📞</div><div><div class="c-lbl">Phone</div><div class="c-val"><a href="tel:8072586032">+91 80725 86032</a></div></div></div>
+          <div class="c-row"><div class="c-ic">✉</div><div><div class="c-lbl">Email</div><div class="c-val"><a href="mailto:kutty6033@gmail.com">kutty6033@gmail.com</a><br><a href="mailto:msptech1025@gmail.com">msptech1025@gmail.com</a></div></div></div>
+          <div class="c-row"><div class="c-ic">🕐</div><div><div class="c-lbl">Hours</div><div class="c-val">Mon – Sat: 9:00 AM – 7:00 PM<br>Sunday: By Appointment</div></div></div>
+        </div>
+        <div class="gstin-box"><div class="g-lbl">GSTIN Number</div><div class="g-val">33FIJPP0366Q1ZM</div></div>
+        <div class="return-policy">
+          <div class="rp-title">📦 Return &amp; Cancellation Policy</div>
+          <div class="rp-items">
+            <div class="rp-item">✅ 7-day return window</div>
+            <div class="rp-item">✅ Cancel before shipping</div>
+            <div class="rp-item">✅ Replacement for damaged parts</div>
+            <div class="rp-item">✅ Refund within 5–7 days</div>
+          </div>
+        </div>
+      </div>
+      <div class="rv fr">
+        <form class="cform" onsubmit="submitContact(event)">
+          <div class="form-grid">
+            <div class="fg"><label>Your Name</label><input type="text" placeholder="Rajesh Kumar" required></div>
+            <div class="fg"><label>Phone Number</label><input type="tel" placeholder="+91 98765 43210" required></div>
+          </div>
+          <div class="fg"><label>Email</label><input type="email" placeholder="your@email.com"></div>
+          <div class="fg"><label>Enquiry Type</label>
+            <select>
+              <option>Spare Parts – Bike</option><option>Spare Parts – Car</option>
+              <option>Press Tool Manufacturing</option><option>EDM Wire Cut Job Work</option>
+              <option>VMC Machining Job Work</option><option>Custom Component</option><option>Other</option>
+            </select>
+          </div>
+          <div class="fg"><label>Message</label><textarea style="height:100px;resize:vertical;" placeholder="Describe what you need — part name, quantity, vehicle model…"></textarea></div>
+          <button type="submit" class="btn-submit">Send Enquiry ✈</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="foot-grid">
+      <div>
+        <div class="f-brand"><div class="f-hex">MSP</div>MSP Tech Engineering</div>
+        <p class="f-desc">Precision tooling and spare parts supplier in Hosur, Tamil Nadu. Trusted by workshops, manufacturers, and individuals across South India.</p>
+        <div class="f-contact">
+          <p>📞 <a href="tel:8072586032">+91 80725 86032</a></p>
+          <p>✉ <a href="mailto:kutty6033@gmail.com">kutty6033@gmail.com</a></p>
+          <p>📍 Hosur – 635 126, Krishnagiri, TN</p>
+        </div>
+      </div>
+      <div>
+        <div class="f-col-title">Products</div>
+        <div class="f-links">
+          <a href="#products" onclick="setFilter('bike')">Bike Spare Parts</a>
+          <a href="#products" onclick="setFilter('car')">Car Spare Parts</a>
+          <a href="#products" onclick="setFilter('tools')">Press Tools</a>
+          <a href="#products" onclick="setFilter('precision')">Precision Parts</a>
+        </div>
+      </div>
+      <div>
+        <div class="f-col-title">Services</div>
+        <div class="f-links">
+          <a href="#capabilities">Press Tool Mfg</a>
+          <a href="#capabilities">EDM Wire Cut</a>
+          <a href="#capabilities">VMC Machining</a>
+          <a href="#contact">Job Work</a>
+        </div>
+      </div>
+      <div>
+        <div class="f-col-title">Support</div>
+        <div class="f-links">
+          <a href="#faq">FAQ</a>
+          <a href="#contact">Contact Us</a>
+          <a onclick="openDash('orders')">Track Order</a>
+          <a onclick="openReturn()">Return Policy</a>
+        </div>
+      </div>
+    </div>
+    <div class="f-bottom">
+      <div class="f-gstin">GSTIN: <b>33FIJPP0366Q1ZM</b></div>
+      <div class="trust-badges">
+        <div class="tb">🔒 SSL Secure</div>
+        <div class="tb">✅ GST Billing</div>
+        <div class="tb">🚚 Fast Delivery</div>
+      </div>
+      <div class="f-copy">© 2025 MSP Tech Engineering. All rights reserved.</div>
+    </div>
+  </div>
+</footer>
+
+<!-- LIVE CHAT -->
+<div class="live-chat">
+  <div class="lc-tooltip">Chat with us!</div>
+  <button class="lc-btn" onclick="showToast('💬 Chat feature coming soon! Call us at +91 80725 86032','3500')">💬</button>
+</div>
+
+<!-- CART PANEL -->
+<div class="overlay" id="cartOverlay" onclick="if(event.target===this)toggleCart()"></div>
+<div class="cart-panel" id="cartPanel">
+  <div class="cp-head"><h2>🛒 Cart (<span id="cartCount">0</span>)</h2><button class="cp-x" onclick="toggleCart()">✕</button></div>
+  <div class="cp-items" id="cartItems"></div>
+  <div class="cp-summary">
+    <div class="cp-coupon"><input type="text" id="couponInput" placeholder="Coupon code (e.g. MSP10)"><button class="btn btn-outline btn-sm" onclick="applyCoupon()">Apply</button></div>
+    <div class="cp-rows" id="cartSummary"></div>
+    <div class="cp-delivery">🚚 Free delivery on orders above ₹999</div>
+    <button class="btn btn-primary" style="width:100%;justify-content:center;" onclick="openCheckout()">Proceed to Checkout →</button>
+  </div>
+</div>
+
+<!-- PRODUCT DETAIL MODAL -->
+<div class="overlay" id="pdOverlay" onclick="if(event.target===this)closePD()">
+  <div class="modal" id="pdModal">
+    <button class="modal-close" onclick="closePD()">✕</button>
+    <div class="modal-body" id="pdBody"></div>
+  </div>
+</div>
+
+<!-- CHECKOUT MODAL -->
+<div class="overlay" id="ckOverlay" onclick="if(event.target===this)closeCheckout()">
+  <div class="modal modal-md" id="ckModal">
+    <button class="modal-close" onclick="closeCheckout()">✕</button>
+    <div class="modal-header"><div class="modal-title" id="ckTitle">Checkout</div></div>
+    <div class="modal-body" id="ckBody"></div>
+  </div>
+</div>
+
+<!-- ORDER CONFIRM MODAL -->
+<div class="overlay" id="ocOverlay">
+  <div class="modal modal-md" id="ocModal">
+    <div id="ocBody"></div>
+  </div>
+</div>
+
+<!-- DASHBOARD MODAL -->
+<div class="overlay" id="dashOverlay" onclick="if(event.target===this)closeDash()">
+  <div class="modal" id="dashModal">
+    <button class="modal-close" onclick="closeDash()">✕</button>
+    <div class="modal-header"><div class="modal-title">My Account</div></div>
+    <div class="modal-body" style="padding:0;">
+      <div class="dash-grid">
+        <div class="dash-sidebar">
+          <div class="dash-menu">
+            <div class="dash-item active" id="dm-orders" onclick="switchDash('orders')"><span>📦</span>My Orders</div>
+            <div class="dash-item" id="dm-wishlist" onclick="switchDash('wishlist')"><span>♡</span>Wishlist</div>
+            <div class="dash-item" id="dm-track" onclick="switchDash('track')"><span>🚚</span>Track Order</div>
+            <div class="dash-item" id="dm-profile" onclick="switchDash('profile')"><span>👤</span>Profile</div>
+            <div class="dash-item" id="dm-returns" onclick="switchDash('returns')"><span>🔄</span>Returns</div>
+          </div>
+        </div>
+        <div class="dash-main">
+          <div class="dash-section active" id="ds-orders" style="display:block;">
+            <h3 style="font-family:'Exo 2',sans-serif;font-size:16px;font-weight:800;color:var(--navy);margin-bottom:16px;">Order History</h3>
+            <div class="orders-list" id="ordersList"></div>
+          </div>
+          <div class="dash-section" id="ds-wishlist">
+            <h3 style="font-family:'Exo 2',sans-serif;font-size:16px;font-weight:800;color:var(--navy);margin-bottom:16px;">Wishlist</h3>
+            <div class="wish-grid" id="wishGrid"></div>
+          </div>
+          <div class="dash-section" id="ds-track">
+            <h3 style="font-family:'Exo 2',sans-serif;font-size:16px;font-weight:800;color:var(--navy);margin-bottom:16px;">Track Your Order</h3>
+            <div class="fg" style="margin-bottom:16px;"><label>Order ID</label><input type="text" id="trackInput" placeholder="e.g. MSP-20250318-001" oninput="liveTrack(this.value)"></div>
+            <div id="trackResult"></div>
+          </div>
+          <div class="dash-section" id="ds-profile">
+            <h3 style="font-family:'Exo 2',sans-serif;font-size:16px;font-weight:800;color:var(--navy);margin-bottom:16px;">My Profile</h3>
+            <div class="form-grid">
+              <div class="fg"><label>Full Name</label><input type="text" value="Guest User"></div>
+              <div class="fg"><label>Phone</label><input type="tel" value=""></div>
+              <div class="fg"><label>Email</label><input type="email" value=""></div>
+              <div class="fg"><label>City</label><input type="text" placeholder="Hosur"></div>
+              <div class="fg full"><label>Default Address</label><textarea style="height:72px;"></textarea></div>
+            </div>
+            <button class="btn btn-primary btn-sm" style="margin-top:12px;" onclick="showToast('✅ Profile saved!')">Save Profile</button>
+          </div>
+          <div class="dash-section" id="ds-returns">
+            <h3 style="font-family:'Exo 2',sans-serif;font-size:16px;font-weight:800;color:var(--navy);margin-bottom:16px;">Returns &amp; Refunds</h3>
+            <div class="return-policy" style="margin-top:0;margin-bottom:16px;">
+              <div class="rp-title" style="font-size:14px;margin-bottom:8px;">Return Policy</div>
+              <p style="font-size:13px;color:var(--text2);line-height:1.7;">• 7-day return window from delivery date<br>• Item must be unused and in original packaging<br>• Damaged/defective parts eligible for immediate replacement<br>• Refund processed within 5–7 business days<br>• Cancel orders free of charge before shipping</p>
+            </div>
+            <div class="fg"><label>Order ID to Return</label><input type="text" placeholder="MSP-20250318-001"></div>
+            <div class="fg" style="margin-top:10px;"><label>Reason for Return</label><select><option>Defective Part</option><option>Wrong Item Received</option><option>Not as Described</option><option>Changed My Mind</option></select></div>
+            <button class="btn btn-red btn-sm" style="margin-top:12px;" onclick="showToast('🔄 Return request submitted. We will contact you within 24 hours.')">Submit Return Request</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ═══════════════════════════════════════════════════════
+//  SVG ILLUSTRATIONS — one per part
+// ═══════════════════════════════════════════════════════
+const SVGS = {
+  // 1 — Piston Kit
+  piston: `<img src="WhatsApp Image 2026-03-19 at 16.30.12.jpeg"        alt="Piston Kit"        style="width:130px;height:130px;object-fit:contain;">
+    <defs><linearGradient id="pg1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#94a3b8"/><stop offset="100%" stop-color="#475569"/></linearGradient>
+    <linearGradient id="pg2" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#cbd5e1"/><stop offset="100%" stop-color="#94a3b8"/></linearGradient></defs>
+    <!-- Piston body -->
+    <rect x="35" y="50" width="60" height="55" rx="6" fill="url(#pg1)"/>
+    <!-- Piston crown -->
+    <ellipse cx="65" cy="50" rx="30" ry="8" fill="#cbd5e1"/>
+    <ellipse cx="65" cy="50" rx="24" ry="5" fill="#e2e8f0"/>
+    <!-- Ring grooves -->
+    <rect x="35" y="60" width="60" height="4" fill="url(#pg2)" rx="1"/>
+    <rect x="35" y="68" width="60" height="4" fill="url(#pg2)" rx="1"/>
+    <rect x="35" y="76" width="60" height="4" fill="url(#pg2)" rx="1"/>
+    <!-- Skirt -->
+    <rect x="42" y="100" width="18" height="15" rx="2" fill="#64748b"/>
+    <rect x="70" y="100" width="18" height="15" rx="2" fill="#64748b"/>
+    <!-- Pin boss -->
+    <ellipse cx="65" cy="105" rx="14" ry="5" fill="#475569"/>
+    <ellipse cx="65" cy="105" rx="8" ry="3" fill="#1e293b"/>
+    <!-- Highlight -->
+    <ellipse cx="52" cy="46" rx="10" ry="3" fill="rgba(255,255,255,.25)" transform="rotate(-15,52,46)"/>
+  </svg>`,
+
+  // 2 — Brake Disc
+  brakeDisc: `<img src="brake.jpeg"         alt="Vented Brake Disc"        style="width:130px;height:130px;object-fit:contain;">
+    <defs><radialGradient id="dg1" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#94a3b8"/><stop offset="100%" stop-color="#334155"/></radialGradient></defs>
+    <!-- Disc outer -->
+    <circle cx="65" cy="65" r="52" fill="url(#dg1)"/>
+    <!-- Vents -->
+    <circle cx="65" cy="65" r="52" fill="none" stroke="#1e293b" stroke-width="2" stroke-dasharray="8 4" stroke-dashoffset="0"/>
+    <!-- Friction surface -->
+    <circle cx="65" cy="65" r="45" fill="#64748b"/>
+    <circle cx="65" cy="65" r="38" fill="#475569"/>
+    <!-- Vent holes around -->
+    <circle cx="65" cy="22" r="5" fill="#1e293b"/>
+    <circle cx="98" cy="40" r="5" fill="#1e293b"/>
+    <circle cx="98" cy="90" r="5" fill="#1e293b"/>
+    <circle cx="65" cy="108" r="5" fill="#1e293b"/>
+    <circle cx="32" cy="90" r="5" fill="#1e293b"/>
+    <circle cx="32" cy="40" r="5" fill="#1e293b"/>
+    <!-- Hub -->
+    <circle cx="65" cy="65" r="16" fill="#94a3b8"/>
+    <circle cx="65" cy="65" r="10" fill="#cbd5e1"/>
+    <circle cx="65" cy="65" r="5" fill="#334155"/>
+    <!-- Highlight -->
+    <ellipse cx="48" cy="38" rx="12" ry="6" fill="rgba(255,255,255,.18)" transform="rotate(-30,48,38)"/>
+  </svg>`,
+
+  // 3 — Cam Chain
+  camChain:  `<img src="cam.jpeg"         alt="Cam Chain Kit"        style="width:130px;height:130px;object-fit:contain;">
+    <defs><linearGradient id="cg1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#fbbf24"/><stop offset="100%" stop-color="#d97706"/></linearGradient></defs>
+    <!-- Chain links horizontal -->
+    <g fill="none" stroke-width="5" stroke-linecap="round">
+      <!-- Top chain row -->
+      <rect x="12" y="35" width="18" height="10" rx="5" fill="#d97706" stroke="#92400e" stroke-width="1.5"/>
+      <rect x="34" y="35" width="18" height="10" rx="5" fill="#fbbf24" stroke="#92400e" stroke-width="1.5"/>
+      <rect x="56" y="35" width="18" height="10" rx="5" fill="#d97706" stroke="#92400e" stroke-width="1.5"/>
+      <rect x="78" y="35" width="18" height="10" rx="5" fill="#fbbf24" stroke="#92400e" stroke-width="1.5"/>
+      <rect x="100" y="35" width="18" height="10" rx="5" fill="#d97706" stroke="#92400e" stroke-width="1.5"/>
+      <!-- Vertical connectors -->
+      <rect x="22" y="40" width="10" height="18" rx="5" fill="#b45309" stroke="#92400e" stroke-width="1.5"/>
+      <rect x="44" y="40" width="10" height="18" rx="5" fill="#fbbf24" stroke="#92400e" stroke-width="1.5"/>
+      <rect x="66" y="40" width="10" height="18" rx="5" fill="#b45309" stroke="#92400e" stroke-width="1.5"/>
+      <rect x="88" y="40" width="10" height="18" rx="5" fill="#fbbf24" stroke="#92400e" stroke-width="1.5"/>
+      <!-- Bottom chain row -->
+      <rect x="12" y="53" width="18" height="10" rx="5" fill="#fbbf24" stroke="#92400e" stroke-width="1.5"/>
+      <rect x="34" y="53" width="18" height="10" rx="5" fill="#d97706" stroke="#92400e" stroke-width="1.5"/>
+      <rect x="56" y="53" width="18" height="10" rx="5" fill="#fbbf24" stroke="#92400e" stroke-width="1.5"/>
+      <rect x="78" y="53" width="18" height="10" rx="5" fill="#d97706" stroke="#92400e" stroke-width="1.5"/>
+      <rect x="100" y="53" width="18" height="10" rx="5" fill="#fbbf24" stroke="#92400e" stroke-width="1.5"/>
+    </g>
+    <!-- Sprocket -->
+    <circle cx="65" cy="88" r="28" fill="#92400e"/>
+    <circle cx="65" cy="88" r="22" fill="#b45309"/>
+    <!-- Sprocket teeth -->
+    <polygon points="65,60 68,66 62,66" fill="#78350f"/>
+    <polygon points="65,116 68,110 62,110" fill="#78350f"/>
+    <polygon points="37,88 43,91 43,85" fill="#78350f"/>
+    <polygon points="93,88 87,91 87,85" fill="#78350f"/>
+    <polygon points="43,68 48,74 44,77" fill="#78350f"/>
+    <polygon points="87,68 82,74 86,77" fill="#78350f"/>
+    <polygon points="43,108 48,102 44,99" fill="#78350f"/>
+    <polygon points="87,108 82,102 86,99" fill="#78350f"/>
+    <circle cx="65" cy="88" r="10" fill="#451a03"/>
+    <circle cx="65" cy="88" r="5" fill="#92400e"/>
+  </svg>`,
+
+  // 4 — Gasket Set
+  gasket: `<img src="gasket.jpeg"         alt="Full Gasket Set"        style="width:130px;height:130px;object-fit:contain;">
+    <defs><linearGradient id="gg1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#6ee7b7"/><stop offset="100%" stop-color="#059669"/></linearGradient></defs>
+    <!-- Gasket outer shape -->
+    <rect x="15" y="20" width="100" height="90" rx="8" fill="#065f46" stroke="#059669" stroke-width="2"/>
+    <rect x="22" y="27" width="86" height="76" rx="5" fill="#047857"/>
+    <!-- Bore holes -->
+    <ellipse cx="65" cy="65" rx="22" ry="22" fill="#022c22" stroke="#10b981" stroke-width="2"/>
+    <!-- Water passages -->
+    <circle cx="30" cy="35" r="7" fill="#022c22" stroke="#6ee7b7" stroke-width="1.5"/>
+    <circle cx="100" cy="35" r="7" fill="#022c22" stroke="#6ee7b7" stroke-width="1.5"/>
+    <circle cx="30" cy="95" r="7" fill="#022c22" stroke="#6ee7b7" stroke-width="1.5"/>
+    <circle cx="100" cy="95" r="7" fill="#022c22" stroke="#6ee7b7" stroke-width="1.5"/>
+    <!-- Oil passage -->
+    <circle cx="50" cy="38" r="5" fill="#022c22" stroke="#d97706" stroke-width="1.5"/>
+    <circle cx="80" cy="38" r="5" fill="#022c22" stroke="#d97706" stroke-width="1.5"/>
+    <circle cx="50" cy="92" r="5" fill="#022c22" stroke="#d97706" stroke-width="1.5"/>
+    <circle cx="80" cy="92" r="5" fill="#022c22" stroke="#d97706" stroke-width="1.5"/>
+    <!-- Bolt holes -->
+    <circle cx="22" cy="27" r="4" fill="#014737" stroke="#6ee7b7" stroke-width="1"/>
+    <circle cx="108" cy="27" r="4" fill="#014737" stroke="#6ee7b7" stroke-width="1"/>
+    <circle cx="22" cy="103" r="4" fill="#014737" stroke="#6ee7b7" stroke-width="1"/>
+    <circle cx="108" cy="103" r="4" fill="#014737" stroke="#6ee7b7" stroke-width="1"/>
+    <!-- MLS layer lines -->
+    <rect x="15" y="23" width="100" height="2" rx="1" fill="#10b981" opacity=".5"/>
+    <rect x="15" y="105" width="100" height="2" rx="1" fill="#10b981" opacity=".5"/>
+  </svg>`,
+
+  // 5 — Blanking Die / Press Tool
+  blankingDie: `<img src="blanking.jpeg"         alt="Blanking Die (Press)"        style="width:130px;height:130px;object-fit:contain;">
+    <defs><linearGradient id="bdg1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#60a5fa"/><stop offset="100%" stop-color="#1d4ed8"/></linearGradient>
+    <linearGradient id="bdg2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#93c5fd"/><stop offset="100%" stop-color="#3b82f6"/></linearGradient></defs>
+    <!-- Die base plate -->
+    <rect x="10" y="80" width="110" height="30" rx="4" fill="url(#bdg1)" stroke="#1e3a8a" stroke-width="1.5"/>
+    <!-- Guide posts -->
+    <rect x="20" y="40" width="10" height="45" rx="3" fill="#3b82f6"/>
+    <rect x="100" y="40" width="10" height="45" rx="3" fill="#3b82f6"/>
+    <!-- Top punch holder -->
+    <rect x="15" y="25" width="100" height="20" rx="4" fill="url(#bdg2)" stroke="#1e3a8a" stroke-width="1.5"/>
+    <!-- Punch -->
+    <rect x="50" y="44" width="30" height="38" rx="2" fill="#1d4ed8"/>
+    <rect x="55" y="82" width="20" height="8" rx="1" fill="#1e3a8a"/>
+    <!-- EDM cut lines on die -->
+    <rect x="52" y="82" width="26" height="16" rx="1" fill="none" stroke="#93c5fd" stroke-width="1" stroke-dasharray="3 2"/>
+    <!-- Shank -->
+    <rect x="58" y="12" width="14" height="14" rx="2" fill="#2563eb"/>
+    <!-- Highlight on top plate -->
+    <rect x="18" y="27" width="60" height="4" rx="2" fill="rgba(255,255,255,.25)"/>
+    <!-- Tolerance label -->
+  </svg>`,
+
+  // 6 — Crankshaft
+  crankshaft: `<img src="crank.jpeg"         alt="Crankshaft Assembly"        style="width:130px;height:130px;object-fit:contain;">
+    <defs><linearGradient id="crg1" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#94a3b8"/><stop offset="100%" stop-color="#475569"/></linearGradient></defs>
+    <!-- Main shaft -->
+    <rect x="8" y="60" width="114" height="12" rx="6" fill="url(#crg1)"/>
+    <!-- Left journal -->
+    <ellipse cx="22" cy="66" rx="10" ry="16" fill="#64748b" stroke="#334155" stroke-width="1.5"/>
+    <ellipse cx="22" cy="66" rx="6" ry="10" fill="#94a3b8"/>
+    <!-- Right journal -->
+    <ellipse cx="108" cy="66" rx="10" ry="16" fill="#64748b" stroke="#334155" stroke-width="1.5"/>
+    <ellipse cx="108" cy="66" rx="6" ry="10" fill="#94a3b8"/>
+    <!-- Crank arms -->
+    <rect x="36" y="42" width="12" height="46" rx="3" fill="#475569"/>
+    <rect x="82" y="42" width="12" height="46" rx="3" fill="#475569"/>
+    <!-- Crank pin -->
+    <ellipse cx="65" cy="40" rx="12" ry="10" fill="#64748b" stroke="#334155" stroke-width="1.5"/>
+    <ellipse cx="65" cy="40" rx="7" ry="6" fill="#94a3b8"/>
+    <!-- Counter weights -->
+    <ellipse cx="45" cy="90" rx="14" ry="8" fill="#334155"/>
+    <ellipse cx="85" cy="90" rx="14" ry="8" fill="#334155"/>
+    <!-- Highlights -->
+    <rect x="8" y="61" width="60" height="3" rx="1.5" fill="rgba(255,255,255,.2)"/>
+  </svg>`,
+
+  // 7 — VMC Bracket / Custom
+  vmcBracket: `<img src="vmc.jpeg"         alt="VMC Bracket (Custom)"        style="width:130px;height:130px;object-fit:contain;">
+    <defs><linearGradient id="vg1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#7dd3fc"/><stop offset="100%" stop-color="#0369a1"/></linearGradient></defs>
+    <!-- L-bracket base -->
+    <rect x="15" y="75" width="100" height="22" rx="4" fill="url(#vg1)" stroke="#075985" stroke-width="1.5"/>
+    <!-- L-bracket vertical arm -->
+    <rect x="15" y="25" width="22" height="55" rx="4" fill="url(#vg1)" stroke="#075985" stroke-width="1.5"/>
+    <!-- Machined holes in base -->
+    <circle cx="40" cy="86" r="6" fill="#0c4a6e" stroke="#38bdf8" stroke-width="1"/>
+    <circle cx="65" cy="86" r="6" fill="#0c4a6e" stroke="#38bdf8" stroke-width="1"/>
+    <circle cx="90" cy="86" r="6" fill="#0c4a6e" stroke="#38bdf8" stroke-width="1"/>
+    <!-- Slotted hole in arm -->
+    <rect x="22" y="42" width="8" height="20" rx="4" fill="#0c4a6e" stroke="#38bdf8" stroke-width="1"/>
+    <!-- Mounting features -->
+    <circle cx="26" cy="35" r="5" fill="#0c4a6e" stroke="#38bdf8" stroke-width="1"/>
+    <circle cx="26" cy="70" r="5" fill="#0c4a6e" stroke="#38bdf8" stroke-width="1"/>
+    <!-- CNC toolpath lines -->
+    <path d="M45 75 L45 55 L100 55 L100 75" fill="none" stroke="#0891b2" stroke-width="1" stroke-dasharray="4 2" opacity=".6"/>
+    <!-- Tolerance callout -->
+    <!-- Highlight -->
+    <rect x="15" y="75" width="100" height="4" rx="2" fill="rgba(255,255,255,.2)"/>
+    <rect x="15" y="25" width="22" height="5" rx="2" fill="rgba(255,255,255,.2)"/>
+  </svg>`,
+
+  // 8 — Shock Absorber
+  shockAbsorber: `<img src="rear.jpeg"         alt="Rear Shock Absorber"        style="width:130px;height:130px;object-fit:contain;">
+    <defs><linearGradient id="sag1" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#86efac"/><stop offset="100%" stop-color="#16a34a"/></linearGradient>
+    <linearGradient id="sag2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#d1fae5"/><stop offset="100%" stop-color="#34d399"/></linearGradient></defs>
+    <!-- Outer tube -->
+    <rect x="52" y="15" width="26" height="85" rx="13" fill="#4b5563"/>
+    <!-- Inner rod -->
+    <rect x="60" y="10" width="10" height="50" rx="5" fill="#cbd5e1"/>
+    <!-- Chrome rod highlight -->
+    <rect x="61" y="10" width="3" height="50" rx="1.5" fill="rgba(255,255,255,.5)"/>
+    <!-- Spring coil -->
+    <path d="M44,50 Q65,45 86,50 Q65,55 44,60 Q65,65 86,70 Q65,75 44,80 Q65,85 86,90 Q65,95 44,100" fill="none" stroke="url(#sag1)" stroke-width="5" stroke-linecap="round"/>
+    <!-- Top eye mount -->
+    <circle cx="65" cy="8" r="8" fill="#374151" stroke="#6b7280" stroke-width="2"/>
+    <circle cx="65" cy="8" r="4" fill="#1f2937"/>
+    <!-- Bottom eye mount -->
+    <circle cx="65" cy="122" r="8" fill="#374151" stroke="#6b7280" stroke-width="2"/>
+    <circle cx="65" cy="122" r="4" fill="#1f2937"/>
+    <!-- Tube highlight -->
+    <rect x="52" y="15" width="6" height="85" rx="3" fill="rgba(255,255,255,.12)"/>
+  </svg>`,
+
+  // 9 — EDM Wire Profile
+  edmProfile:`<img src="edm.jpeg"         alt="EDM Wire Cut Profile"        style="width:130px;height:130px;object-fit:contain;"> 
+    <defs><linearGradient id="eg1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#93c5fd"/><stop offset="100%" stop-color="#1d4ed8"/></linearGradient></defs>
+    <!-- Steel block -->
+    <rect x="18" y="25" width="94" height="80" rx="4" fill="#334155"/>
+    <!-- EDM cut complex profile -->
+    <path d="M28 95 L28 50 L45 50 L45 60 L55 60 L55 45 L75 45 L75 60 L85 60 L85 50 L102 50 L102 95 Z" fill="#1e293b" stroke="#60a5fa" stroke-width="2"/>
+    <!-- EDM wire path animation -->
+    <path d="M28 95 L28 50 L45 50 L45 60 L55 60 L55 45 L75 45 L75 60 L85 60 L85 50 L102 50 L102 95 Z" fill="none" stroke="#93c5fd" stroke-width="1" stroke-dasharray="5 3" opacity=".7">
+      <animate attributeName="stroke-dashoffset" from="0" to="-30" dur="2s" repeatCount="indefinite"/>
+    </path>
+    <!-- Spark effect dots -->
+    <circle cx="28" cy="60" r="2.5" fill="#fbbf24" opacity=".9"/>
+    <circle cx="55" cy="48" r="2" fill="#fbbf24" opacity=".7"/>
+    <circle cx="85" cy="56" r="2" fill="#fbbf24" opacity=".8"/>
+    <!-- Wire spool representation -->
+    <circle cx="110" cy="18" r="8" fill="#1d4ed8" stroke="#60a5fa" stroke-width="1.5"/>
+    <circle cx="110" cy="18" r="4" fill="#1e40af"/>
+    <line x1="102" y1="18" x2="102" y2="50" stroke="#60a5fa" stroke-width="1.5" stroke-dasharray="3 2"/>
+    <!-- Ra callout -->
+  </svg>`,
+
+  // 10 — Clutch Plate Set
+  clutchPlate:`<img src="clutch.jpeg"         alt="Clutch Plate Set"        style="width:130px;height:130px;object-fit:contain;"> 
+    <defs><radialGradient id="cplg" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#94a3b8"/><stop offset="100%" stop-color="#334155"/></radialGradient></defs>
+    <!-- Pressure plate back disc -->
+    <circle cx="65" cy="70" r="48" fill="#475569"/>
+    <circle cx="65" cy="65" r="48" fill="url(#cplg)"/>
+    <!-- Friction surface rings -->
+    <circle cx="65" cy="65" r="42" fill="none" stroke="#334155" stroke-width="3"/>
+    <circle cx="65" cy="65" r="36" fill="#4b5563"/>
+    <circle cx="65" cy="65" r="30" fill="#374151"/>
+    <!-- Friction material texture -->
+    <circle cx="65" cy="65" r="36" fill="none" stroke="#64748b" stroke-width="1" stroke-dasharray="4 2"/>
+    <circle cx="65" cy="65" r="28" fill="none" stroke="#64748b" stroke-width="1" stroke-dasharray="3 3"/>
+    <!-- Drive springs bumps (diaphragm) -->
+    <circle cx="65" cy="27" r="5" fill="#6b7280" stroke="#9ca3af" stroke-width="1"/>
+    <circle cx="95" cy="42" r="5" fill="#6b7280" stroke="#9ca3af" stroke-width="1"/>
+    <circle cx="95" cy="88" r="5" fill="#6b7280" stroke="#9ca3af" stroke-width="1"/>
+    <circle cx="65" cy="103" r="5" fill="#6b7280" stroke="#9ca3af" stroke-width="1"/>
+    <circle cx="35" cy="88" r="5" fill="#6b7280" stroke="#9ca3af" stroke-width="1"/>
+    <circle cx="35" cy="42" r="5" fill="#6b7280" stroke="#9ca3af" stroke-width="1"/>
+    <!-- Hub splines -->
+    <circle cx="65" cy="65" r="12" fill="#1e293b"/>
+    <circle cx="65" cy="65" r="7" fill="#334155"/>
+    <!-- Spline teeth -->
+    <rect x="62" y="53" width="6" height="6" rx="1" fill="#475569"/>
+    <rect x="62" y="71" width="6" height="6" rx="1" fill="#475569"/>
+    <rect x="53" y="62" width="6" height="6" rx="1" fill="#475569"/>
+    <rect x="71" y="62" width="6" height="6" rx="1" fill="#475569"/>
+    <!-- Highlight -->
+    <ellipse cx="48" cy="42" rx="14" ry="7" fill="rgba(255,255,255,.12)" transform="rotate(-30,48,42)"/>
+  </svg>`,
+
+  // 11 — Valve Set
+  valveSet: `<img src="intel.jpeg"    alt="Intel/Exhaust Valve Set"        style="width:130px;height:130px;object-fit:contain;">
+    <defs><linearGradient id="vlg1" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#e0f2fe"/><stop offset="100%" stop-color="#0284c7"/></linearGradient>
+    <linearGradient id="vlg2" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#fde68a"/><stop offset="100%" stop-color="#d97706"/></linearGradient></defs>
+    <!-- Inlet valve (blue) - larger -->
+    <rect x="30" y="20" width="10" height="75" rx="5" fill="url(#vlg1)"/>
+    <ellipse cx="35" cy="100" rx="22" ry="8" fill="#0284c7"/>
+    <ellipse cx="35" cy="97" rx="22" ry="8" fill="#0ea5e9"/>
+    <!-- Valve stem groove (inlet) -->
+    <rect x="30" y="25" width="10" height="5" rx="2" fill="#0c4a6e"/>
+    <rect x="30" y="33" width="10" height="5" rx="2" fill="#0c4a6e"/>
+    <!-- Exhaust valve (gold) - smaller -->
+    <rect x="90" y="28" width="10" height="67" rx="5" fill="url(#vlg2)"/>
+    <ellipse cx="95" cy="100" rx="18" ry="7" fill="#d97706"/>
+    <ellipse cx="95" cy="97" rx="18" ry="7" fill="#fbbf24"/>
+    <!-- Valve stem groove (exhaust) -->
+    <rect x="90" y="33" width="10" height="5" rx="2" fill="#78350f"/>
+    <rect x="90" y="41" width="10" height="5" rx="2" fill="#78350f"/>
+    <!-- Highlights -->
+    <rect x="30" y="20" width="3" height="75" rx="1.5" fill="rgba(255,255,255,.3)"/>
+    <rect x="90" y="28" width="3" height="67" rx="1.5" fill="rgba(255,255,255,.3)"/>
+    <!-- Labels -->
+    <!-- Size indicator -->
+    <line x1="13" y1="97" x2="57" y2="97" stroke="#0284c7" stroke-width="1" stroke-dasharray="3 2"/>
+  </svg>`,
+
+  // 12 — Bending Die Set
+  bendingDie: `<img src="bending.jpeg"    alt="Bending Die Set"        style="width:130px;height:130px;object-fit:contain;">
+    <defs><linearGradient id="bdsg1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#6ee7b7"/><stop offset="100%" stop-color="#059669"/></linearGradient>
+    <linearGradient id="bdsg2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#34d399"/><stop offset="100%" stop-color="#065f46"/></linearGradient></defs>
+    <!-- Die block bottom (V-die) -->
+    <rect x="15" y="75" width="100" height="35" rx="4" fill="url(#bdsg1)" stroke="#065f46" stroke-width="1.5"/>
+    <!-- V groove -->
+    <polygon points="45,75 85,75 65,95" fill="#022c22" stroke="#34d399" stroke-width="1.5"/>
+    <!-- Angle markings -->
+    <line x1="45" y1="75" x2="35" y2="60" stroke="#6ee7b7" stroke-width="1" stroke-dasharray="3 2"/>
+    <line x1="85" y1="75" x2="95" y2="60" stroke="#6ee7b7" stroke-width="1" stroke-dasharray="3 2"/>
+    <!-- Punch (top) -->
+    <rect x="52" y="20" width="26" height="50" rx="4" fill="url(#bdsg2)" stroke="#065f46" stroke-width="1.5"/>
+    <!-- Punch tip -->
+    <polygon points="52,70 78,70 65,82" fill="#065f46"/>
+    <!-- Sheet metal being bent -->
+    <path d="M20 75 L65 75 L110 55" fill="none" stroke="#f59e0b" stroke-width="3" stroke-linecap="round"/>
+    <!-- Sheet springback arrows -->
+    <path d="M90 65 Q100 58 105 55" fill="none" stroke="#fbbf24" stroke-width="1.5" marker-end="url(#arr)"/>
+    <!-- Highlight on punch -->
+    <rect x="52" y="20" width="7" height="50" rx="3" fill="rgba(255,255,255,.18)"/>
+  </svg>`,
+};
+
+// ═══════════════════════════════════════════════════════
+//  DATA — map svg key to each product
+// ═══════════════════════════════════════════════════════
+const PRODUCTS = [
+  {id:1, name:'Piston Kit', svgKey:'piston', cat:'bike', bg:'#eef4ff', brand:'MSP OEM', compat:'Honda Shine / Bajaj Pulsar 150', partNo:'MSP-PK-150', material:'Forged Aluminum', warranty:'6 Months', stock:'In Stock', stockQty:24, price:1250, mrp:1499, desc:'Complete piston assembly with rings and gudgeon pin. Precision-machined for Honda and Bajaj 150cc engines.', specs:{Diameter:'60mm',Weight:'320g',Compression:'9.5:1',Ring:'3-ring set',Finish:'Hard anodized'}, badge:'In Stock', bClass:'bg-g', rating:4.5, ratingCount:38},
+  {id:2, name:'Vented Brake Disc', svgKey:'brakeDisc', cat:'car', bg:'#e0f2fe', brand:'MSP AutoParts', compat:'Maruti Swift / Hyundai i10', partNo:'MSP-BD-300', material:'High Carbon Alloy', warranty:'12 Months', stock:'In Stock', stockQty:12, price:2800, mrp:3499, desc:'High-carbon vented brake disc. Anti-corrosion coating. OEM dimensions for perfect fitment.', specs:{Diameter:'256mm',Thickness:'20mm',PCD:'98mm / 4 holes',Material:'GG25 Cast Iron',Finish:'Geomet coated'}, badge:'In Stock', bClass:'bg-g', rating:4.8, ratingCount:52},
+  {id:3, name:'Cam Chain Kit', svgKey:'camChain', cat:'bike', bg:'#fff7ed', brand:'MSP OEM', compat:'Hero HF Deluxe / Honda CD100', partNo:'MSP-CCK-100', material:'Alloy Steel', warranty:'6 Months', stock:'Low Stock', stockQty:5, price:680, mrp:799, desc:'Complete cam chain set including tensioner and sprocket. Reduces valve noise and improves timing accuracy.', specs:{Chain:'98L DID',Tensioner:'Hydraulic',Sprocket:'26T/64T',Pitch:'8mm',Coating:'Zinc plated'}, badge:'Hot Deal', bClass:'bg-o', rating:4.3, ratingCount:25},
+  {id:4, name:'Full Gasket Set', svgKey:'gasket', cat:'car', bg:'#dcfce7', brand:'MSP Seals', compat:'Maruti 800 / Omni / Alto', partNo:'MSP-GS-800', material:'Viton / Graphite', warranty:'12 Months', stock:'In Stock', stockQty:18, price:1950, mrp:2399, desc:'Complete engine gasket kit with head gasket, valve seals, and all gaskets for a full engine rebuild.', specs:{HeadGasket:'MLS 3-layer','Bore Size':'796cc',Valve:'Viton seals',Set:'26 pcs',Temp:'Up to 300°C'}, badge:'In Stock', bClass:'bg-g', rating:4.6, ratingCount:44},
+  {id:5, name:'Blanking Die (Press)', svgKey:'blankingDie', cat:'tools', bg:'#dbeafe', brand:'MSP Tool Room', compat:'Custom per drawing', partNo:'MSP-BD-CUST', material:'D2 Tool Steel', warranty:'Tooling Life', stock:'Made to Order', stockQty:0, price:0, mrp:0, desc:'Custom blanking die manufactured using EDM wire cut. Hardened D2 steel, 58–62 HRC. Minimum 1 set with approved drawing.', specs:{Material:'D2 Tool Steel',Hardness:'60±2 HRC',Tolerance:'±0.01mm',Lead:'7–10 days',DieLife:'500k+ strokes'}, badge:'Custom', bClass:'bg-b', rating:5, ratingCount:12},
+  {id:6, name:'Crankshaft Assembly', svgKey:'crankshaft', cat:'bike', bg:'#fff7ed', brand:'MSP OEM', compat:'Bajaj CT100 / Hero HF100', partNo:'MSP-CR-100', material:'Alloy Steel', warranty:'6 Months', stock:'In Stock', stockQty:8, price:3400, mrp:3999, desc:'Precision-balanced crankshaft. Dynamic balancing ensures smooth operation. Drop-in replacement for 100cc engines.', specs:{Type:'Single cylinder',Stroke:'57.8mm',Balance:'Dynamic balanced',Bearing:'Both ends SKF',Coating:'Phosphate'}, badge:'In Stock', bClass:'bg-g', rating:4.7, ratingCount:31},
+  {id:7, name:'VMC Bracket (Custom)', svgKey:'vmcBracket', cat:'precision', bg:'#e0f2fe', brand:'MSP Precision', compat:'Per customer drawing', partNo:'MSP-BK-CUST', material:'Al 6061 / MS / SS', warranty:'Dimensional Guarantee', stock:'Made to Order', stockQty:0, price:0, mrp:0, desc:'CNC VMC machined bracket to your drawing. Tolerance ±0.02mm. Any material. From 1 piece. DXF/DWG/STEP file accepted.', specs:{Axes:'3-axis VMC',Tolerance:'±0.02mm',Material:'Al, MS, SS, Brass',Lead:'3–5 days',MOQ:'1 piece'}, badge:'Custom', bClass:'bg-b', rating:5, ratingCount:8},
+  {id:8, name:'Rear Shock Absorber', svgKey:'shockAbsorber', cat:'bike', bg:'#dcfce7', brand:'MSP AutoParts', compat:'Honda Shine / Hero Splendor', partNo:'MSP-SA-SP', material:'Steel + Rubber', warranty:'6 Months', stock:'In Stock', stockQty:20, price:890, mrp:1099, desc:'Heavy-duty rear shock absorber pair. Rebuildable design. Spring preload adjustable. 6-month replacement warranty.', specs:{Length:'330mm',Spring:'Progressive rate',Damping:'Oil',Load:'Max 180kg',Stroke:'60mm'}, badge:'Best Seller', bClass:'bg-o', rating:4.4, ratingCount:67},
+  {id:9, name:'EDM Wire Cut Profile', svgKey:'edmProfile', cat:'precision', bg:'#dbeafe', brand:'MSP Tool Room', compat:'Per customer drawing', partNo:'MSP-EDM-PROF', material:'Per customer spec', warranty:'Dimensional cert', stock:'Made to Order', stockQty:0, price:0, mrp:0, desc:'Complex 2D profiles cut from hardened tool steel. Mirror finish up to Ra 0.4µm. Send DXF/DWG for immediate quotation.', specs:{Wire:'0.25mm brass',Accuracy:'±0.005mm',Finish:'Ra 0.4µm',MaxThick:'200mm',Lead:'1–3 days'}, badge:'Custom', bClass:'bg-b', rating:5, ratingCount:6},
+  {id:10, name:'Clutch Plate Set', svgKey:'clutchPlate', cat:'car', bg:'#fff7ed', brand:'MSP AutoParts', compat:'Maruti Omni / Alto 800', partNo:'MSP-CP-800', material:'Organic Friction', warranty:'6 Months', stock:'In Stock', stockQty:15, price:4200, mrp:4999, desc:'Complete clutch kit: pressure plate, driven plate, and release bearing. OEM dimensions. Smooth engagement.', specs:{Type:'Single dry plate',OD:'190mm',Facing:'Organic',PressurePlate:'Diaphragm spring',Bearing:'NSK release brg'}, badge:'In Stock', bClass:'bg-g', rating:4.6, ratingCount:29},
+  {id:11, name:'Inlet/Exhaust Valve Set', svgKey:'valveSet', cat:'bike', bg:'#e0f2fe', brand:'MSP OEM', compat:'100–125cc 4-stroke', partNo:'MSP-VS-125', material:'Nitride Steel', warranty:'6 Months', stock:'In Stock', stockQty:32, price:420, mrp:499, desc:'Inlet and exhaust valve pair. Nitrogen treated for wear resistance. Fits most 100–125cc Japanese and Indian bikes.', specs:{InletDia:'24mm',ExhaustDia:'21mm',StemDia:'5mm',Length:'82mm',Coating:'CrN nitrided'}, badge:'In Stock', bClass:'bg-g', rating:4.2, ratingCount:18},
+  {id:12, name:'Bending Die Set', svgKey:'bendingDie', cat:'tools', bg:'#dcfce7', brand:'MSP Tool Room', compat:'0.5–6mm sheet metal', partNo:'MSP-BDS-CUST', material:'D2 / H13 Steel', warranty:'Tooling Life', stock:'Made to Order', stockQty:0, price:0, mrp:0, desc:'V-die and U-die bending set for sheet metal fabrication. Custom V-groove angle and radius per your requirement.', specs:{Material:'H13 Hot work steel',Hardness:'56±2 HRC',VAngle:'30°/60°/90°/120°',Lead:'5–7 days',MOQ:'1 set'}, badge:'Custom', bClass:'bg-b', rating:4.9, ratingCount:9},
+];
+
+const FILTERS = [{l:'All',v:'all'},{l:'Bike Parts',v:'bike'},{l:'Car Parts',v:'car'},{l:'Press Tools',v:'tools'},{l:'Precision',v:'precision'}];
+
+const TESTIMONIALS = [
+  {stars:'★★★★★',text:'MSP Tech delivered a precision press tool matching our drawing exactly. EDM wire cut quality is outstanding — zero rework. They issued a proper GST invoice too.',name:'Suresh Kumar',co:'Auto Parts Manufacturer, Hosur',color:'#2563eb'},
+  {stars:'★★★★★',text:'Sourcing bike spare parts here for 2 years. Piston kits and cam chain sets are always genuine. Fast dispatch and proper packaging. Highly recommended!',name:'Murugan R.',co:'Two-Wheeler Workshop, Krishnagiri',color:'#0891b2'},
+  {stars:'★★★★☆',text:'VMC machining job work is excellent. Got custom brackets from DXF file. Tolerance was within spec. Easy order tracking and professional service.',name:'Priya Shankar',co:'Engineering Startup, Bangalore',color:'#16a34a'},
+  {stars:'★★★★★',text:'Clutch set and brake discs for Maruti Alto fit perfectly. GST billing made it easy for ITC claims. Clear return policy and responsive support team.',name:'Rajendran M.',co:'Automobile Workshop, Salem',color:'#ea580c'},
+  {stars:'★★★★★',text:'EDM profiles for our die set came out mirror finish. They sent dimensional report with every delivery. MSP Tech understands precision engineering at the highest level.',name:'Karthik V.',co:'Tool & Die Shop, Coimbatore',color:'#7c3aed'},
+];
+
+const FAQS = [
+  {q:'What are your delivery charges and timelines?',a:'Free delivery on orders above ₹999. Standard delivery 2–5 days within Tamil Nadu. Express delivery 1–2 days available at ₹150 extra. Pan-India shipping available.'},
+  {q:'Do you provide GST invoice for business purchases?',a:'Yes! We provide proper GST tax invoices with our GSTIN 33FIJPP0366Q1ZM for all orders. Invoice sent via email and included in the package.'},
+  {q:'What is your return and replacement policy?',a:'7-day return window from delivery. Defective or damaged parts are replaced at no cost. Unused items in original packaging eligible for return. Refund processed within 5–7 business days.'},
+  {q:'Can I get custom parts manufactured?',a:'Yes! We manufacture custom components using VMC machining, EDM wire cut, and press tools. Share your DXF/DWG drawing or a broken sample, and we\'ll quote within 24 hours.'},
+  {q:'How do I track my order?',a:'After order confirmation, you receive an Order ID and tracking link via SMS/email. Use the Track Order section in My Account or enter your Order ID to see real-time status.'},
+  {q:'Are the spare parts original/genuine?',a:'We supply OEM-spec parts manufactured to original tolerances. Custom precision parts come with dimensional inspection reports. All parts are quality-checked before dispatch.'},
+  {q:'What payment methods do you accept?',a:'UPI (GPay, PhonePe, Paytm), Debit/Credit Cards, Net Banking, and Cash on Delivery (COD) for orders up to ₹5,000. All online payments are secured via SSL encryption.'},
+];
+
+const VEHICLE_DATA = {
+  Bike:['Honda','Bajaj','Hero','TVS','Royal Enfield','Yamaha','Suzuki'],
+  Car:['Maruti Suzuki','Hyundai','Tata','Mahindra','Honda','Toyota','Ford'],
+};
+
+// ═══════════════════════════════════════════════════════
+//  STATE
+// ═══════════════════════════════════════════════════════
+let cart = [], wishlist = [], orders = [], ckStep = 0, ckData = {}, qtyMap = {}, couponApplied = false, slideIdx = 0;
+const GST_RATE = 0.18, SHIPPING_FREE = 999, SHIPPING_CHARGE = 99;
+
+// ═══════════════════════════════════════════════════════
+//  INIT
+// ═══════════════════════════════════════════════════════
+window.addEventListener('load', () => setTimeout(() => document.getElementById('loader').classList.add('hide'), 1800));
+window.addEventListener('scroll', () => document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 40));
+document.addEventListener('DOMContentLoaded', () => {
+  buildFilters(); renderProducts('all');
+  buildTestimonials(); buildFAQ();
+  buildCartUI(); buildWishUI(); buildOrdersUI();
+  observeReveal(); observeCounters();
+});
+
+// ═══════════════════════════════════════════════════════
+//  NAV
+// ═══════════════════════════════════════════════════════
+function toggleNav(){ document.getElementById('navLinks').classList.toggle('open'); }
+function closeNav(){ document.getElementById('navLinks').classList.remove('open'); }
+
+// ═══════════════════════════════════════════════════════
+//  VEHICLE FINDER
+// ═══════════════════════════════════════════════════════
+function updateVfMake(){
+  const type = document.getElementById('vfType').value;
+  const makeEl = document.getElementById('vfMake');
+  makeEl.innerHTML = '<option value="">Brand</option>';
+  if(VEHICLE_DATA[type]) VEHICLE_DATA[type].forEach(m => makeEl.innerHTML += `<option>${m}</option>`);
+}
+function searchByVehicle(){
+  const type = document.getElementById('vfType').value;
+  if(!type){ showToast('⚠️ Please select vehicle type'); return; }
+  const cat = type === 'Bike' ? 'bike' : 'car';
+  document.getElementById('products').scrollIntoView({behavior:'smooth'});
+  setTimeout(() => setFilter(cat), 600);
+  const make = document.getElementById('vfMake').value;
+  showToast(`🔍 Showing ${type} parts${make?' for '+make:''}`);
+}
+
+// ═══════════════════════════════════════════════════════
+//  FILTERS & PRODUCTS
+// ═══════════════════════════════════════════════════════
+function buildFilters(){
+  document.getElementById('filterBar').innerHTML = FILTERS.map((f,i) =>
+    `<button class="fb-btn${i===0?' active':''}" onclick="setFilter('${f.v}',this)">${f.l}</button>`
+  ).join('');
+}
+
+function setFilter(cat, btn){
+  document.querySelectorAll('.fb-btn').forEach(b => b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  else {
+    const b = [...document.querySelectorAll('.fb-btn')].find(b =>
+      b.textContent.toLowerCase().includes(cat==='all'?'all':cat==='bike'?'bike':cat==='car'?'car':cat==='tools'?'press':'precision')
+    );
+    if(b) b.classList.add('active');
+  }
+  renderProducts(cat);
+}
+
+function renderProducts(cat){
+  const grid = document.getElementById('productsGrid');
+  const list = cat === 'all' ? PRODUCTS : PRODUCTS.filter(p => p.cat === cat);
+  grid.style.cssText = 'opacity:0;transform:translateY(12px);transition:none;';
+  setTimeout(() => {
+    grid.innerHTML = list.map(p => productCardHTML(p)).join('');
+    grid.style.cssText = 'opacity:1;transform:none;transition:opacity .4s,transform .4s;';
+    observeReveal();
+  }, 180);
+}
+
+function getSvg(key){ return SVGS[key] || '<svg viewBox="0 0 130 130"><text x="65" y="70" text-anchor="middle" font-size="40">⚙</text></svg>'; }
+
+function productCardHTML(p){
+  const isCustom = p.price === 0;
+  const inWish = wishlist.some(w => w.id === p.id);
+  return `
+  <div class="pc rv">
+    <div class="pc-img" style="background:${p.bg};" onclick="openPD(${p.id})">
+      <button class="pc-wish${inWish?' active':''}" onclick="event.stopPropagation();toggleWish(${p.id})" title="Wishlist">♡</button>
+      ${p.badge?`<div class="pc-badge ${p.bClass}">${p.badge}</div>`:''}
+      ${getSvg(p.svgKey)}
+    </div>
+    <div class="pc-body">
+      <div class="pc-cat">${p.cat==='bike'?'Bike Parts':p.cat==='car'?'Car Parts':p.cat==='tools'?'Press Tools':'Precision Parts'}</div>
+      <div class="pc-name" onclick="openPD(${p.id})">${p.name}</div>
+      <div class="pc-brand">${p.brand} • Part# ${p.partNo}</div>
+      <div class="pc-compat">🔧 ${p.compat}</div>
+      <div class="pc-stars"><span>${'★'.repeat(Math.floor(p.rating))}${'☆'.repeat(5-Math.floor(p.rating))}</span><small>(${p.ratingCount} reviews)</small></div>
+      ${isCustom
+        ? `<div class="pc-price-row"><div class="pc-price" style="font-size:15px;color:var(--cyan);">On Request</div></div>`
+        : `<div class="pc-price-row"><div class="pc-price">₹${p.price.toLocaleString('en-IN')}</div><div class="pc-mrp">₹${p.mrp.toLocaleString('en-IN')}</div><div class="pc-disc">${Math.round((p.mrp-p.price)/p.mrp*100)}% off</div></div>`
+      }
+      <div class="pc-stock ${p.stockQty > 10?'in-stock':p.stockQty > 0?'low-stock':'out-stock'}">
+        ${p.stockQty > 10 ? '✅ In Stock' : p.stockQty > 0 ? `⚠️ Only ${p.stockQty} left` : '🔴 Made to Order'}
+      </div>
+      <div class="pc-foot">
+        <button class="add-cart-btn" onclick="addToCart(${p.id})">${isCustom?'Get Quote':'+ Cart'}</button>
+        <button class="view-btn" onclick="openPD(${p.id})">Details</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+// ═══════════════════════════════════════════════════════
+//  PRODUCT DETAIL
+// ═══════════════════════════════════════════════════════
+function openPD(id){
+  const p = PRODUCTS.find(x => x.id === id);
+  if(!p) return;
+  const isCustom = p.price === 0;
+  const inWish = wishlist.some(w => w.id === id);
+  if(!qtyMap[id]) qtyMap[id] = 1;
+  document.getElementById('pdBody').innerHTML = `
+  <div class="pd-grid">
+    <div class="pd-imgs">
+      <div class="pd-main-img" style="background:${p.bg};">${getSvg(p.svgKey)}</div>
+      <div class="pd-thumbs">
+        <div class="pd-thumb active" onclick="document.querySelector('.pd-main-img').style.background='${p.bg}'">
+          ${getSvg(p.svgKey)}
+        </div>
+        <div class="pd-thumb" onclick="document.querySelector('.pd-main-img').innerHTML='<div style=padding:20px;font-size:13px;color:var(--slate);text-align:center>📋<br>Specification<br>Drawing</div>'">📋</div>
+        <div class="pd-thumb" onclick="document.querySelector('.pd-main-img').innerHTML='<div style=padding:20px;font-size:13px;color:var(--slate);text-align:center>📦<br>Packaging<br>View</div>'">📦</div>
+        <div class="pd-thumb" onclick="document.querySelector('.pd-main-img').innerHTML='<div style=padding:20px;font-size:13px;color:var(--slate);text-align:center>🔍<br>Quality<br>Inspection</div>'">🔍</div>
+      </div>
+    </div>
+    <div class="pd-info">
+      <div class="pc-cat">${p.cat==='bike'?'Bike Parts':p.cat==='car'?'Car Parts':p.cat==='tools'?'Press Tools':'Precision Parts'}</div>
+      <div class="pd-title">${p.name}</div>
+      <div class="pd-brand">Brand: <strong>${p.brand}</strong> &nbsp;|&nbsp; Part No: <strong style="font-family:'JetBrains Mono',monospace;font-size:12px;">${p.partNo}</strong></div>
+      <div class="pd-stars-row">
+        <span style="color:var(--gold);font-size:16px;">${'★'.repeat(Math.floor(p.rating))}${'☆'.repeat(5-Math.floor(p.rating))}</span>
+        <span style="font-size:13px;color:var(--text2);">${p.rating}/5 &nbsp;(${p.ratingCount} verified reviews)</span>
+      </div>
+      ${isCustom
+        ? `<div style="font-size:20px;font-weight:700;color:var(--cyan);margin-bottom:12px;">Price: On Request</div>`
+        : `<div class="pd-price-row">
+            <div class="pd-price">₹${p.price.toLocaleString('en-IN')}</div>
+            <div class="pd-mrp">₹${p.mrp.toLocaleString('en-IN')}</div>
+            <div class="pd-disc">${Math.round((p.mrp-p.price)/p.mrp*100)}% OFF</div>
+            <span class="pd-gst">+18% GST incl.</span>
+           </div>`
+      }
+      <div class="warranty-pill">🛡 ${p.warranty} Warranty</div>
+      <div style="font-size:13px;color:var(--text2);line-height:1.75;margin-bottom:14px;">${p.desc}</div>
+      <div style="font-size:12px;color:var(--text2);margin-bottom:6px;"><strong style="color:var(--navy);">Compatibility:</strong> ${p.compat}</div>
+      <div style="font-size:12px;color:var(--text2);margin-bottom:6px;"><strong style="color:var(--navy);">Material:</strong> ${p.material}</div>
+      <div style="font-size:12px;margin-bottom:14px;">
+        <span class="${p.stockQty>10?'in-stock':p.stockQty>0?'low-stock':'out-stock'} pc-stock">
+          ${p.stockQty>10?'✅ In Stock':p.stockQty>0?`⚠️ Only ${p.stockQty} left`:'🔴 Made to Order'}
+        </span>
+      </div>
+      <strong style="font-family:'Exo 2',sans-serif;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--slate);display:block;margin-bottom:6px;">Specifications</strong>
+      <table class="spec-table">
+        ${Object.entries(p.specs).map(([k,v]) => `<tr><td>${k}</td><td>${v}</td></tr>`).join('')}
+      </table>
+      ${!isCustom ? `
+      <div class="qty-row">
+        <span style="font-size:12px;color:var(--slate);font-family:'Exo 2',sans-serif;font-weight:700;letter-spacing:1px;text-transform:uppercase;">Qty:</span>
+        <div class="qty-ctrl">
+          <button class="qty-btn" onclick="pdQty(${id},-1)">−</button>
+          <input class="qty-val" id="pdQty_${id}" value="${qtyMap[id]||1}" readonly>
+          <button class="qty-btn" onclick="pdQty(${id},1)">+</button>
+        </div>
+        <span style="font-size:13px;color:var(--text2);">Total: <strong>₹${((qtyMap[id]||1)*p.price).toLocaleString('en-IN')}</strong></span>
+      </div>
+      ` : ''}
+      <div style="display:flex;gap:10px;flex-wrap:wrap;">
+        <button class="btn btn-primary" onclick="${isCustom?`closePD();document.getElementById('contact').scrollIntoView({behavior:'smooth'})`:`addToCart(${id});closePD()`}">
+          ${isCustom?'📞 Request Quote':'🛒 Add to Cart'}
+        </button>
+        <button class="btn btn-outline" onclick="toggleWish(${id})">${inWish?'♡ In Wishlist':'♡ Wishlist'}</button>
+      </div>
+      <div style="margin-top:14px;padding:12px 14px;background:var(--bg);border-radius:var(--r);font-size:12px;color:var(--text2);">
+        🚚 Estimated delivery: <strong style="color:var(--navy);">${getDeliveryDate()}</strong> &nbsp;|&nbsp;
+        📦 ${p.stockQty > 0 ? 'Ships within 24 hrs' : 'Ships in 3–7 days after confirmation'}
+      </div>
+    </div>
+  </div>`;
+  document.getElementById('pdOverlay').classList.add('open');
+}
+
+function pdQty(id, d){
+  qtyMap[id] = Math.max(1, (qtyMap[id]||1) + d);
+  const el = document.getElementById('pdQty_'+id);
+  if(el){
+    el.value = qtyMap[id];
+    const p = PRODUCTS.find(x=>x.id===id);
+    el.closest('.qty-row').querySelector('strong').textContent = '₹'+(qtyMap[id]*p.price).toLocaleString('en-IN');
+  }
+}
+function closePD(){ document.getElementById('pdOverlay').classList.remove('open'); }
+
+// ═══════════════════════════════════════════════════════
+//  CART
+// ═══════════════════════════════════════════════════════
+function addToCart(id){
+  const p = PRODUCTS.find(x => x.id === id);
+  if(p.price === 0){ showToast('📞 Custom part — please Request a Quote'); document.getElementById('contact').scrollIntoView({behavior:'smooth'}); return; }
+  const ex = cart.find(x => x.id === id);
+  if(ex) ex.qty = Math.min(ex.qty + (qtyMap[id]||1), 20);
+  else cart.push({...p, qty: qtyMap[id]||1});
+  updateCartBadge(); buildCartUI(); showToast(`✅ ${p.name} added to cart`);
+  const btn = document.querySelector('.n-icon-btn.cart-btn');
+  if(btn){ btn.style.transform='scale(1.25)'; setTimeout(()=>btn.style.transform='',250); }
+}
+
+function removeFromCart(id){ cart = cart.filter(x => x.id !== id); buildCartUI(); updateCartBadge(); showToast('🗑 Item removed'); }
+function updateCartQty(id, d){ const item = cart.find(x => x.id === id); if(!item) return; item.qty = Math.max(1, item.qty + d); if(item.qty === 0) removeFromCart(id); else buildCartUI(); }
+
+function updateCartBadge(){
+  const count = cart.reduce((a,x) => a + x.qty, 0);
+  const badge = document.getElementById('cartBadge');
+  badge.textContent = count; badge.style.display = count > 0 ? 'flex' : 'none';
+  document.getElementById('cartCount').textContent = count;
+}
+
+function toggleCart(open){
+  const panel = document.getElementById('cartPanel');
+  const ov = document.getElementById('cartOverlay');
+  const shouldOpen = open !== undefined ? open : !panel.classList.contains('open');
+  panel.classList.toggle('open', shouldOpen);
+  ov.classList.toggle('open', shouldOpen);
+}
+
+function buildCartUI(){
+  const el = document.getElementById('cartItems');
+  if(cart.length === 0){ el.innerHTML = '<div class="cp-empty"><div>🛒</div><p style="font-size:13px;">Your cart is empty.<br>Browse parts and add items.</p></div>'; }
+  else {
+    el.innerHTML = cart.map(p => `
+    <div class="ci">
+      <div class="ci-img" style="background:${p.bg};">${getSvg(p.svgKey)}</div>
+      <div style="flex:1;min-width:0;">
+        <div class="ci-name">${p.name}</div>
+        <div class="ci-sub">${p.brand} • ${p.partNo}</div>
+        <div class="ci-price">₹${p.price.toLocaleString('en-IN')} each</div>
+        <div class="ci-qty-ctrl">
+          <button class="ci-qb" onclick="updateCartQty(${p.id},-1)">−</button>
+          <span class="ci-qv">${p.qty}</span>
+          <button class="ci-qb" onclick="updateCartQty(${p.id},1)">+</button>
+        </div>
+      </div>
+      <button class="ci-del" onclick="removeFromCart(${p.id})">✕</button>
+    </div>`).join('');
+  }
+  buildCartSummary();
+}
+
+function buildCartSummary(){
+  const subtotal = cart.reduce((s,p) => s+p.price*p.qty, 0);
+  const discount = couponApplied ? Math.round(subtotal * 0.10) : 0;
+  const afterDisc = subtotal - discount;
+  const gst = Math.round(afterDisc * GST_RATE);
+  const shipping = afterDisc >= SHIPPING_FREE ? 0 : SHIPPING_CHARGE;
+  const total = afterDisc + gst + shipping;
+  const estDate = getDeliveryDate();
+  document.getElementById('cartSummary').innerHTML = `
+    <div class="cp-row"><span>Subtotal (${cart.reduce((a,x)=>a+x.qty,0)} items)</span><span>₹${subtotal.toLocaleString('en-IN')}</span></div>
+    ${discount>0?`<div class="cp-row" style="color:var(--green);"><span>Coupon Discount (10%)</span><span>−₹${discount.toLocaleString('en-IN')}</span></div>`:''}
+    <div class="cp-row"><span>GST (18%)</span><span>₹${gst.toLocaleString('en-IN')}</span></div>
+    <div class="cp-row"><span>Shipping</span><span>${shipping===0?'<span style="color:var(--green);">FREE</span>':'₹'+shipping}</span></div>
+    <div class="cp-row total"><span>Total</span><span>₹${total.toLocaleString('en-IN')}</span></div>
+    <div style="font-size:11px;color:var(--slate2);margin-top:6px;">📅 Estimated delivery: <strong>${estDate}</strong></div>`;
+  return {subtotal, discount, gst, shipping, total, estDate};
+}
+
+function applyCoupon(){
+  const code = document.getElementById('couponInput').value.trim().toUpperCase();
+  if(code === 'MSP10'){ couponApplied = true; buildCartSummary(); showToast('🎉 Coupon MSP10 applied — 10% off!'); }
+  else if(code === 'FIRST50'){ couponApplied = true; buildCartSummary(); showToast('🎉 Coupon FIRST50 applied!'); }
+  else showToast('❌ Invalid coupon code. Try MSP10');
+}
+
+function getDeliveryDate(){
+  const d = new Date(); d.setDate(d.getDate() + 3);
+  return d.toLocaleDateString('en-IN',{weekday:'short',day:'numeric',month:'short'});
+}
+
+// ═══════════════════════════════════════════════════════
+//  WISHLIST
+// ═══════════════════════════════════════════════════════
+function toggleWish(id){
+  const p = PRODUCTS.find(x => x.id === id);
+  const idx = wishlist.findIndex(x => x.id === id);
+  if(idx >= 0){ wishlist.splice(idx,1); showToast('💔 Removed from wishlist'); }
+  else { wishlist.push(p); showToast('♥ Added to wishlist!'); }
+  const badge = document.getElementById('wishBadge');
+  badge.textContent = wishlist.length; badge.style.display = wishlist.length > 0 ? 'flex' : 'none';
+  buildWishUI();
+  const active = document.querySelector('.fb-btn.active');
+  const cat = active ? (active.textContent.toLowerCase().includes('all')?'all':active.textContent.toLowerCase().includes('bike')?'bike':active.textContent.toLowerCase().includes('car')?'car':active.textContent.toLowerCase().includes('press')?'tools':'precision') : 'all';
+  renderProducts(cat);
+}
+
+function buildWishUI(){
+  const el = document.getElementById('wishGrid');
+  if(!el) return;
+  if(wishlist.length === 0){ el.innerHTML = '<p style="font-size:13px;color:var(--slate2);">No items in wishlist.</p>'; return; }
+  el.innerHTML = wishlist.map(p => `
+    <div class="wish-item" onclick="closeDash();openPD(${p.id})">
+      <div class="wish-emoji">${getSvg(p.svgKey)}</div>
+      <div class="wish-name">${p.name}</div>
+      <div class="wish-price">${p.price>0?'₹'+p.price.toLocaleString('en-IN'):'On Request'}</div>
+      <button class="btn btn-xs" style="margin-top:8px;width:100%;justify-content:center;" onclick="event.stopPropagation();closeDash();addToCart(${p.id})">${p.price>0?'Add to Cart':'Get Quote'}</button>
+    </div>`).join('');
+}
+
+// ═══════════════════════════════════════════════════════
+//  CHECKOUT FLOW
+// ═══════════════════════════════════════════════════════
+function openCheckout(){
+  if(cart.length === 0){ showToast('⚠️ Cart is empty'); return; }
+  toggleCart(false);
+  ckStep = 0; ckData = {};
+  document.getElementById('ckOverlay').classList.add('open');
+  renderCkStep();
+}
+function closeCheckout(){ document.getElementById('ckOverlay').classList.remove('open'); }
+
+function renderCkStep(){
+  const steps = ['Delivery','Payment','Review'];
+  document.getElementById('ckTitle').textContent = `Checkout — ${steps[ckStep]}`;
+  const body = document.getElementById('ckBody');
+  const summary = buildCartSummary();
+  const stepsHTML = `<div class="checkout-steps">${steps.map((s,i)=>`<div class="ck-step${i===ckStep?' active':i<ckStep?' done':''}"><div class="ck-num">${i<ckStep?'✓':i+1}</div>${s}</div>`).join('')}</div>`;
+
+  if(ckStep === 0){
+    body.innerHTML = stepsHTML + `
+    <div class="form-grid" id="ckForm0">
+      <div class="fg"><label>Full Name</label><input id="ck_name" type="text" placeholder="Rajesh Kumar" required></div>
+      <div class="fg"><label>Mobile Number</label><input id="ck_phone" type="tel" placeholder="+91 98765 43210" required></div>
+      <div class="fg full"><label>Email ID</label><input id="ck_email" type="email" placeholder="your@email.com"></div>
+      <div class="fg full"><label>Shipping Address</label><textarea id="ck_addr" style="height:80px;" placeholder="Door No, Street, Area, City" required></textarea></div>
+      <div class="fg"><label>PIN Code</label><input id="ck_pin" type="text" placeholder="635 126" maxlength="6" required></div>
+      <div class="fg"><label>State</label><select id="ck_state"><option>Tamil Nadu</option><option>Karnataka</option><option>Andhra Pradesh</option><option>Kerala</option><option>Telangana</option><option>Maharashtra</option><option>Other</option></select></div>
+      <div class="fg full"><label>Billing Address</label><select id="ck_billing"><option value="same">Same as shipping address</option><option value="diff">Different billing address</option></select></div>
+    </div>
+    <div style="background:var(--bg);border-radius:var(--r);padding:12px 14px;margin-top:14px;font-size:12px;color:var(--text2);">
+      📅 Estimated delivery: <strong>${summary.estDate}</strong> &nbsp;|&nbsp; 🚚 ${summary.shipping===0?'FREE Delivery':'₹'+summary.shipping+' Shipping'}
+    </div>
+    <div style="display:flex;justify-content:flex-end;margin-top:16px;"><button class="btn btn-primary" onclick="ckNext0()">Continue to Payment →</button></div>`;
+  }
+
+  if(ckStep === 1){
+    body.innerHTML = stepsHTML + `
+    <p style="font-size:13px;color:var(--text2);margin-bottom:16px;">Order Total: <strong style="font-size:20px;font-family:'Exo 2',sans-serif;color:var(--blue2);">₹${summary.total.toLocaleString('en-IN')}</strong></p>
+    <div class="pay-opts">
+      <label class="pay-opt sel" id="po_upi"><input type="radio" name="pay" value="upi" checked onchange="selPay(this)"><div class="pay-icon" style="background:var(--green-lt);">📱</div><div><div class="pay-name">UPI Payment</div><div class="pay-desc">GPay, PhonePe, Paytm, BHIM UPI</div></div></label>
+      <label class="pay-opt" id="po_card"><input type="radio" name="pay" value="card" onchange="selPay(this)"><div class="pay-icon" style="background:var(--blue-lt);">💳</div><div><div class="pay-name">Debit / Credit Card</div><div class="pay-desc">Visa, Mastercard, Rupay</div></div></label>
+      <label class="pay-opt" id="po_nb"><input type="radio" name="pay" value="netbanking" onchange="selPay(this)"><div class="pay-icon" style="background:var(--cyan-lt);">🏦</div><div><div class="pay-name">Net Banking</div><div class="pay-desc">All major Indian banks</div></div></label>
+      <label class="pay-opt" id="po_cod"><input type="radio" name="pay" value="cod" onchange="selPay(this)"><div class="pay-icon" style="background:var(--gold-lt);">💵</div><div><div class="pay-name">Cash on Delivery</div><div class="pay-desc">Pay on delivery (upto ₹5,000)</div></div></label>
+    </div>
+    <div class="secure-badge">🔒 Payments secured with 256-bit SSL encryption. We do not store card details.</div>
+    <div style="display:flex;justify-content:space-between;margin-top:16px;">
+      <button class="btn btn-outline" onclick="ckStep=0;renderCkStep()">← Back</button>
+      <button class="btn btn-primary" onclick="ckNext1()">Review Order →</button>
+    </div>`;
+  }
+
+  if(ckStep === 2){
+    const payLabel = {'upi':'UPI Payment','card':'Debit/Credit Card','netbanking':'Net Banking','cod':'Cash on Delivery'}[ckData.payment]||'';
+    body.innerHTML = stepsHTML + `
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px;">
+      <div style="background:var(--bg);border-radius:var(--r2);padding:14px 16px;border:1px solid var(--border);">
+        <div style="font-family:'Exo 2',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--cyan);margin-bottom:8px;">Delivery To</div>
+        <div style="font-size:13px;color:var(--text2);line-height:1.7;">${ckData.name}<br>${ckData.phone}<br>${ckData.address}<br>${ckData.pin}, ${ckData.state}</div>
+      </div>
+      <div style="background:var(--bg);border-radius:var(--r2);padding:14px 16px;border:1px solid var(--border);">
+        <div style="font-family:'Exo 2',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--cyan);margin-bottom:8px;">Payment</div>
+        <div style="font-size:13px;color:var(--text2);">${payLabel}</div>
+        <div style="font-size:12px;color:var(--slate2);margin-top:4px;">📅 Est. delivery: ${summary.estDate}</div>
+      </div>
+    </div>
+    <div style="background:var(--bg);border-radius:var(--r2);padding:14px 16px;border:1px solid var(--border);margin-bottom:14px;">
+      <div style="font-family:'Exo 2',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--cyan);margin-bottom:10px;">Order Summary</div>
+      ${cart.map(p=>`<div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);">
+        <div style="width:36px;height:36px;background:${p.bg};border-radius:6px;overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center;">${getSvg(p.svgKey)}</div>
+        <div style="flex:1;"><div style="font-size:13px;font-weight:600;color:var(--navy);">${p.name}</div><div style="font-size:11px;color:var(--slate2);">Qty: ${p.qty} × ₹${p.price.toLocaleString('en-IN')}</div></div>
+        <div style="font-size:13px;font-weight:700;color:var(--navy);">₹${(p.price*p.qty).toLocaleString('en-IN')}</div>
+      </div>`).join('')}
+      <div style="margin-top:10px;font-size:13px;color:var(--text2);display:flex;flex-direction:column;gap:4px;">
+        <div style="display:flex;justify-content:space-between;"><span>Subtotal</span><span>₹${summary.subtotal.toLocaleString('en-IN')}</span></div>
+        ${summary.discount>0?`<div style="display:flex;justify-content:space-between;color:var(--green);"><span>Coupon Discount</span><span>−₹${summary.discount.toLocaleString('en-IN')}</span></div>`:''}
+        <div style="display:flex;justify-content:space-between;"><span>GST (18%)</span><span>₹${summary.gst.toLocaleString('en-IN')}</span></div>
+        <div style="display:flex;justify-content:space-between;"><span>Shipping</span><span>${summary.shipping===0?'FREE':'₹'+summary.shipping}</span></div>
+        <div style="display:flex;justify-content:space-between;font-family:'Exo 2',sans-serif;font-size:16px;font-weight:900;color:var(--navy);border-top:1px dashed var(--border);padding-top:8px;margin-top:4px;"><span>Total</span><span style="color:var(--blue2);">₹${summary.total.toLocaleString('en-IN')}</span></div>
+      </div>
+    </div>
+    <div style="display:flex;justify-content:space-between;">
+      <button class="btn btn-outline" onclick="ckStep=1;renderCkStep()">← Back</button>
+      <button class="btn btn-green" onclick="placeOrder(${summary.total})">✅ Place Order</button>
+    </div>`;
+  }
+}
+
+function ckNext0(){
+  const name = document.getElementById('ck_name')?.value.trim();
+  const phone = document.getElementById('ck_phone')?.value.trim();
+  const addr = document.getElementById('ck_addr')?.value.trim();
+  const pin = document.getElementById('ck_pin')?.value.trim();
+  if(!name||!phone||!addr||!pin){ showToast('⚠️ Please fill all required fields'); return; }
+  if(pin.length < 6){ showToast('⚠️ Enter valid 6-digit PIN code'); return; }
+  ckData = {name, phone, email:document.getElementById('ck_email')?.value, address:addr, pin, state:document.getElementById('ck_state')?.value};
+  ckStep = 1; renderCkStep();
+}
+
+function ckNext1(){
+  const sel = document.querySelector('input[name="pay"]:checked');
+  if(!sel){ showToast('⚠️ Please select a payment method'); return; }
+  ckData.payment = sel.value;
+  ckStep = 2; renderCkStep();
+}
+
+function selPay(el){
+  document.querySelectorAll('.pay-opt').forEach(p => p.classList.remove('sel'));
+  el.closest('.pay-opt').classList.add('sel');
+}
+
+function placeOrder(total){
+  const oid = 'MSP-' + Date.now().toString().slice(-10).replace(/(\d{4})(\d{3})(\d{3})/,'$1-$2-$3');
+  const txnId = 'TXN' + Math.random().toString(36).slice(2,10).toUpperCase();
+  const newOrder = {
+    id: oid, txnId, items: [...cart], total,
+    customer: ckData, payment: ckData.payment,
+    date: new Date().toLocaleDateString('en-IN'),
+    estDelivery: getDeliveryDate(),
+    status: 'Confirmed', statusStep: 1,
+    tracking: 'BLUEDART' + Math.random().toString().slice(2,12),
+    courier: 'Blue Dart',
+  };
+  orders.unshift(newOrder);
+  cart = []; couponApplied = false;
+  updateCartBadge(); buildCartUI(); buildOrdersUI();
+  closeCheckout();
+  showOrderConfirmation(newOrder);
+}
+
+function showOrderConfirmation(order){
+  const payLabel = {'upi':'UPI Payment','card':'Debit/Credit Card','netbanking':'Net Banking','cod':'Cash on Delivery'}[order.payment]||order.payment;
+  document.getElementById('ocBody').innerHTML = `
+  <div class="oc-header">
+    <div class="oc-icon">✅</div>
+    <div class="oc-title">Order Placed Successfully!</div>
+    <div class="oc-sub">Thank you ${order.customer.name}! A confirmation has been sent to your email &amp; phone.</div>
+    <div class="oc-id">${order.id}</div>
+    <p style="font-size:12px;color:var(--slate2);">Transaction ID: <span style="font-family:'JetBrains Mono',monospace;">${order.txnId}</span></p>
+  </div>
+  <div class="oc-grid">
+    <div class="oc-card"><div class="oc-card-title">Delivery Address</div><p>${order.customer.name}<br>${order.customer.address}<br>${order.customer.pin}, ${order.customer.state}</p></div>
+    <div class="oc-card"><div class="oc-card-title">Payment Details</div><p>Method: <span class="val">${payLabel}</span><br>Status: <span style="color:var(--green);font-weight:600;">✅ Confirmed</span><br>Amount: <span class="val">₹${order.total.toLocaleString('en-IN')}</span></p></div>
+    <div class="oc-card"><div class="oc-card-title">Order Items</div><p>${order.items.map(p=>`${p.name} × ${p.qty}`).join('<br>')}</p></div>
+    <div class="oc-card"><div class="oc-card-title">Estimated Delivery</div><p><span class="val" style="font-size:16px;">${order.estDelivery}</span><br>Courier: ${order.courier}<br>Tracking: <span style="font-family:'JetBrains Mono',monospace;font-size:11px;">${order.tracking}</span></p></div>
+  </div>
+  <div style="padding:0 28px 28px;display:flex;gap:10px;flex-wrap:wrap;">
+    <button class="btn btn-primary btn-sm" onclick="closeOC();openDash('track');document.getElementById('trackInput').value='${order.id}';liveTrack('${order.id}')">🚚 Track Order</button>
+    <button class="btn btn-outline btn-sm" onclick="closeOC()">Continue Shopping</button>
+  </div>`;
+  document.getElementById('ocOverlay').classList.add('open');
+}
+
+function closeOC(){ document.getElementById('ocOverlay').classList.remove('open'); }
+
+// ═══════════════════════════════════════════════════════
+//  TRACKING
+// ═══════════════════════════════════════════════════════
+const TRACK_STEPS = [
+  {label:'Order Confirmed',icon:'✅',desc:'Your order has been placed and confirmed.'},
+  {label:'Packed',icon:'📦',desc:'Item packed and ready for dispatch.'},
+  {label:'Shipped',icon:'🚛',desc:'Shipped via Blue Dart.'},
+  {label:'Out for Delivery',icon:'🛵',desc:'Out for delivery in your area.'},
+  {label:'Delivered',icon:'🏠',desc:'Delivered successfully.'},
+];
+
+function liveTrack(val){
+  const order = orders.find(o => o.id === val.trim());
+  const el = document.getElementById('trackResult');
+  if(!el) return;
+  if(!order){ el.innerHTML = val.length > 10 ? '<p style="font-size:13px;color:var(--slate2);">Order not found. Please check the ID.</p>' : ''; return; }
+  el.innerHTML = `
+  <div style="background:var(--bg);border-radius:var(--r2);padding:14px 16px;border:1px solid var(--border);margin-bottom:14px;">
+    <div style="font-family:'Exo 2',sans-serif;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--cyan);margin-bottom:4px;">Order Found</div>
+    <div style="font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--blue2);">${order.id}</div>
+    <div style="font-size:12px;color:var(--slate2);margin-top:4px;">Courier: ${order.courier} | Tracking: ${order.tracking}</div>
+  </div>
+  <div class="track-steps">
+    ${TRACK_STEPS.map((s,i) => `
+    <div class="track-step${i < order.statusStep ? ' done' : i === order.statusStep ? ' active' : ''}">
+      <div class="track-dot">${i < order.statusStep ? '✓' : s.icon}</div>
+      <div class="track-title">${s.label}</div>
+      <div class="track-sub">${i < order.statusStep ? 'Completed' : i === order.statusStep ? 'In Progress' : 'Pending'} ${i===0?'— '+order.date:''}</div>
+    </div>`).join('')}
+  </div>`;
+}
+
+// ═══════════════════════════════════════════════════════
+//  DASHBOARD
+// ═══════════════════════════════════════════════════════
+function openDash(section){
+  document.getElementById('dashOverlay').classList.add('open');
+  switchDash(section || 'orders');
+}
+function closeDash(){ document.getElementById('dashOverlay').classList.remove('open'); }
+
+function switchDash(section){
+  document.querySelectorAll('.dash-item').forEach(d => d.classList.remove('active'));
+  document.querySelectorAll('.dash-section').forEach(s => { s.style.display='none'; s.classList.remove('active'); });
+  const di = document.getElementById('dm-'+section); if(di) di.classList.add('active');
+  const ds = document.getElementById('ds-'+section); if(ds){ ds.style.display='block'; ds.classList.add('active'); }
+  if(section==='wishlist') buildWishUI();
+  if(section==='orders') buildOrdersUI();
+}
+
+function buildOrdersUI(){
+  const el = document.getElementById('ordersList');
+  if(!el) return;
+  if(orders.length === 0){ el.innerHTML = '<p style="font-size:13px;color:var(--slate2);">No orders yet. Start shopping!</p>'; return; }
+  el.innerHTML = orders.map(o => `
+  <div class="order-row">
+    <div class="order-ic" style="width:40px;height:40px;background:${o.items[0]?.bg||'#eef4ff'};border-radius:8px;overflow:hidden;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+      ${o.items[0]?getSvg(o.items[0].svgKey):'📦'}
+    </div>
+    <div style="flex:1;">
+      <div class="order-id">${o.id}</div>
+      <div class="order-name">${o.items.map(p=>p.name).join(', ')}</div>
+      <div class="order-date">${o.date} | ₹${o.total.toLocaleString('en-IN')}</div>
+    </div>
+    <div>
+      <div class="order-status ${o.status==='Delivered'?'st-delivered':o.status==='Shipped'?'st-shipped':'st-confirmed'}">${o.status}</div>
+      <button class="btn btn-xs btn-outline" style="margin-top:6px;" onclick="switchDash('track');document.getElementById('trackInput').value='${o.id}';liveTrack('${o.id}')">Track</button>
+    </div>
+  </div>`).join('');
+}
+
+// ═══════════════════════════════════════════════════════
+//  TESTIMONIALS
+// ═══════════════════════════════════════════════════════
+function buildTestimonials(){
+  const track = document.getElementById('tTrack');
+  const doubled = [...TESTIMONIALS, ...TESTIMONIALS];
+  track.innerHTML = doubled.map(t => `
+  <div class="t-card">
+    <div class="t-stars">${t.stars}</div>
+    <div class="t-text">"${t.text}"</div>
+    <div class="t-auth">
+      <div class="t-av" style="background:${t.color};">${t.name[0]}</div>
+      <div><div class="t-name">${t.name}</div><div class="t-co">${t.co}</div></div>
+    </div>
+  </div>`).join('');
+  const dots = document.getElementById('slDots');
+  dots.innerHTML = TESTIMONIALS.map((_,i) => `<div class="sd${i===0?' active':''}" onclick="goSlide(${i})"></div>`).join('');
+}
+
+function updateSlider(){ document.getElementById('tTrack').style.transform = `translateX(-${slideIdx * (320+22)}px)`; document.querySelectorAll('.sd').forEach((d,i) => d.classList.toggle('active', i===slideIdx)); }
+function slide(d){ slideIdx = (slideIdx+d+TESTIMONIALS.length)%TESTIMONIALS.length; updateSlider(); }
+function goSlide(i){ slideIdx=i; updateSlider(); }
+
+let dragX=null, dragSi=null;
+document.addEventListener('DOMContentLoaded', () => {
+  const w = document.getElementById('tWrap');
+  if(!w) return;
+  w.addEventListener('mousedown', e=>{dragX=e.pageX;dragSi=slideIdx;});
+  document.addEventListener('mousemove', e=>{ if(dragX===null)return; if(Math.abs(dragX-e.pageX)>60){slideIdx=Math.max(0,Math.min(TESTIMONIALS.length-1,dragSi+(dragX-e.pageX>0?1:-1)));updateSlider();dragX=null;} });
+  document.addEventListener('mouseup', ()=>dragX=null);
+  w.addEventListener('touchstart',e=>{dragX=e.touches[0].pageX;dragSi=slideIdx;},{passive:true});
+  w.addEventListener('touchend',e=>{const d=dragX-e.changedTouches[0].pageX;if(Math.abs(d)>50){slideIdx=Math.max(0,Math.min(TESTIMONIALS.length-1,dragSi+(d>0?1:-1)));updateSlider();}dragX=null;});
+});
+setInterval(()=>slide(1), 5000);
+
+// ═══════════════════════════════════════════════════════
+//  FAQ
+// ═══════════════════════════════════════════════════════
+function buildFAQ(){
+  document.getElementById('faqList').innerHTML = FAQS.map((f,i) => `
+  <div class="faq-item" id="faq_${i}">
+    <div class="faq-q" onclick="toggleFAQ(${i})">${f.q}<span class="faq-icon">+</span></div>
+    <div class="faq-a" id="fa_${i}"><p>${f.a}</p></div>
+  </div>`).join('');
+}
+function toggleFAQ(i){
+  const item = document.getElementById('faq_'+i);
+  const ans = document.getElementById('fa_'+i);
+  const open = item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(f=>f.classList.remove('open'));
+  document.querySelectorAll('.faq-a').forEach(a=>a.classList.remove('open'));
+  if(!open){ item.classList.add('open'); ans.classList.add('open'); }
+}
+
+// ═══════════════════════════════════════════════════════
+//  MACHINE TABS
+// ═══════════════════════════════════════════════════════
+function mTab(i){
+  document.querySelectorAll('.m-tab').forEach((t,j)=>t.classList.toggle('active',i===j));
+  document.querySelectorAll('.m-content').forEach((c,j)=>c.classList.toggle('active',i===j));
+}
+
+// ═══════════════════════════════════════════════════════
+//  COUNTERS
+// ═══════════════════════════════════════════════════════
+let cnDone=false;
+function animateCounters(){
+  if(cnDone)return; cnDone=true;
+  document.querySelectorAll('[data-t]').forEach(el=>{
+    const target=parseInt(el.dataset.t);
+    const sfx=el.querySelector('.cs')?.outerHTML||'';
+    let cur=0; const step=Math.max(1,Math.ceil(target/60));
+    const t=setInterval(()=>{cur=Math.min(cur+step,target);el.innerHTML=cur+sfx;if(cur>=target)clearInterval(t);},20);
+  });
+}
+function observeCounters(){
+  const obs=new IntersectionObserver(e=>{if(e[0].isIntersecting){animateCounters();obs.disconnect();}},{threshold:.3});
+  const el=document.querySelector('.counters');if(el)obs.observe(el);
+}
+
+// ═══════════════════════════════════════════════════════
+//  SCROLL REVEAL
+// ═══════════════════════════════════════════════════════
+function observeReveal(){
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('vis'),i*80);obs.unobserve(e.target);}});
+  },{threshold:.1});
+  document.querySelectorAll('.rv:not(.vis)').forEach(el=>obs.observe(el));
+}
+
+// ═══════════════════════════════════════════════════════
+//  CONTACT
+// ═══════════════════════════════════════════════════════
+function submitContact(e){ e.preventDefault(); showToast('✅ Enquiry sent! We will call you shortly.'); e.target.reset(); }
+function openReturn(){ openDash('returns'); }
+
+function showToast(msg, dur=3000){
+  const t=document.getElementById('toast');
+  t.innerHTML=msg; t.classList.add('show');
+  clearTimeout(t._tm); t._tm=setTimeout(()=>t.classList.remove('show'),+dur);
+}
+</script>
+</body>
+</html>
